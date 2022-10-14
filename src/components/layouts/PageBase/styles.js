@@ -4,12 +4,6 @@ const styles = (theme) => ({
   container: {
     overflowX: 'hidden',
   },
-  main: {
-    '@media (max-width: 1299px)': {
-      width: `calc(100% - ${sidebarWidth}px)`,
-    },
-    
-  },
 
   appBar:{
     backgroundColor:'#FFFFFF',
@@ -27,7 +21,7 @@ const styles = (theme) => ({
       position: 'absolute',
     },
     '@media (max-width: 767px)': {
-      padding: '0 10px 0 10px',
+      padding: '0 40px 0 40px',
       position: 'relative',
     },
     '& .logo': {
@@ -47,7 +41,7 @@ const styles = (theme) => ({
       },
     },
     '& .menu': {
-      '@media (max-width: 1299px)': {
+      '@media (max-width: 767px)': {
         display: 'none',
       },
       '& .menuItem': {
@@ -100,7 +94,7 @@ const styles = (theme) => ({
       },
       '& .menuIcon': {
         display: 'none',
-        '@media (max-width: 1299px)': {
+        '@media (max-width: 767px)': {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -118,9 +112,6 @@ const styles = (theme) => ({
             },
           },
         },
-        '@media (max-width: 767px)': {
-          marginLeft: 5,
-        },
       },
 
     },
@@ -134,30 +125,27 @@ const styles = (theme) => ({
       width: '0px',
       height: '100%',
       position: 'absolute',
-      transition: 'width 0.5s ease out',
     },
   },
   sidebarShow: {
     display: 'none',
-    '@media (max-width: 1299px)': {
+    '@media (max-width: 767px)': {
       display: 'block',
       backgroundColor: '#FFFFFF',
       alignItems: 'flex-end',
-      width: `${sidebarWidth}px`,
+      width: `${sidebarWidth - 50}px`,
       height: '100%',
       position: 'absolute',
       right: 0,
-      transition: 'width 0.5s ease in',
-    },
-    '@media (max-width: 767px)': {
-      width: `${sidebarWidth - 50}px`,
+      borderLeft: '1px solid #E0E0E0',
     },
     '& .sidebar': {
       width: '100%',
       marginLeft: 20,
     },
 
-  }
+  },
+ 
 })
 
 export default styles;

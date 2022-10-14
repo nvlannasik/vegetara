@@ -8,9 +8,27 @@ const styles = () => ({
       zIndex:-1,
     },
     '& .landingPageContent': {
-      position: 'absolute',
-      top: 200,
-      right: 500,
+      position: 'relative',
+      top: -100,
+      textAlign: 'center',
+      '@media (max-width: 1299px)': {
+        top: -80,
+      },
+      '@media (max-width: 767px)': {
+        top: -60,
+      },
+      '& h1': {
+        fontSize: 32,
+        fontWeight: 'bold',
+        color: '#fff',
+        
+        '@media (max-width: 1299px)': {
+          fontSize: 24,
+        },
+        '@media (max-width: 767px)': {
+          fontSize: 18,
+        },
+      },
     }
   },
 })

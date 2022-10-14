@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1 {
+  font-size: 32px;
+}
+h2{
+  font-size: 24px;
+}
+h3{
+  font-size: 16px;
+}
+p{
+  font-size: 14px;
+}
+span{
+  font-size: 12px;
+}
+a{
+  text-decoration: none;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 767px) {
+h1 {
+  font-size: 16px;
+}
+h2{
+  font-size: 8px;
+}
+h3{
+  font-size: 4px;
+}
+p{
+  font-size: 10px;
+}
+span{
+  font-size: 10px;
+}
+a{
+  font-size: 10px;
+}
+}
+

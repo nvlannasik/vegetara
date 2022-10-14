@@ -1,6 +1,6 @@
 import React from 'react';
 import { ButtonFilled, TextInput, Footer } from '../../components/elements';
-import { ROUTES, API } from '../../configs';
+import { ROUTES, API, IMAGES } from '../../configs';
 import axios from 'axios';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { loginSchema } from '../../utils/schemas';
 import { setUserSession } from '../../utils/commons';
 
-export default class Login extends React.Component{
+export default class LoginPetani extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,25 +19,6 @@ export default class Login extends React.Component{
       error: false,
       errorMessage: ''
     };
-  }
-
-  handleLogin = (values) => {
-    const { username, password } = values
-    const body = {"userName": username,"password": password}
-    axios.post(API.login, body, API.header)
-      .then((res) => {
-        if (res.status === 200) {
-          // window.location.href = ROUTES.LANDING_PAGE()
-          setUserSession(res.data.accessToken, res.data.data)
-        }
-      })
-      .catch((err) => {
-        const { response } = err;
-        if (response.status === 400) {
-          this.setState({ error: true, errorMessage: 'username atau password salah' })
-        }else {this.setState({error: true,errorMessage: 'Terjadi kesalahan pada server'})}
-      }
-    );
   }
 
   handleFocus = (field) => this.setState(prevState => ({ [field]: !prevState[field] }))
@@ -69,43 +50,40 @@ export default class Login extends React.Component{
             onFocus={this.handleFocus.bind(this, 'hintPassword')}
           />
           <div className="forgotPassWrapper">
-            <Link  className="forgotPassword">Lupa Password?</Link>
+            <Link className="forgotPassword">Lupa Password?</Link>
           </div>
           <div className="buttonWrapper">
             <ButtonFilled type="submit" disabled={isSubmitting} >
-            Masuk
+              Masuk
             </ButtonFilled>
           </div>
           <div className="registerWrapper">
-            <p className="registerText">Belum punya akun?</p>
-            <Link to={ROUTES.REGISTER()} className="registerLink">Daftar</Link>
+            <p className="registerText">Belum punya akun? Silakan hubungi <Link className="forgotPassword">Admin</Link></p>
           </div>
         </div>
       </form>
     );
   }
-   
   render() {
     const { classes } = this.props;
     const { username, password } = this.state;
     const initialValues = { username, password };
     return (
       <div className={classes.container}>
-        <div className={classes.cardLogin}>
-          <div className="cardLoginHeader">
-            <h1>Masuk</h1>
-          </div>
-          <div className="cardLoginBody">
-            <Formik
-              initialValues={initialValues}
-              component={this.renderFormLogin}
-              validationSchema={loginSchema}
-              onSubmit={this.handleLogin}
-            />
-          </div>
-          
+        <div className="logo">
+          <img src={IMAGES.LOGO_WHITE} alt="logo" className='img1' />
+          <img src={IMAGES.LOGO_GREEN} alt="logo" className='img2' />
         </div>
-        <Footer />
+        <div className="login">
+          <h1 className="title">Masuk sebagai petani!</h1>
+          <Formik
+            initialValues={initialValues}
+            component={this.renderFormLogin}
+            validationSchema={loginSchema}
+            onSubmit={this.handleLogin}
+          />
+        </div>
+        
       </div>
     );
   }
