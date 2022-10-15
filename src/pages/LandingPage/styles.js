@@ -31,6 +31,18 @@ const styles = () => ({
       },
     }
   },
+
+  cardProduct: {
+    padding: "0px 55px 20px 55px",
+    // display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
+  
+  titleProduct : {
+    padding: "0px 55px 20px 60px",
+  }
+
 })
 
 export default styles;
