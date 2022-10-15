@@ -3,6 +3,7 @@ import { ButtonFilled, ButtonGhost, Card } from '../../components/elements';
 import PageBase from '../../components/layouts/PageBase';
 import { IMAGES, ROUTES } from '../../configs';
 import { getUserSession } from '../../utils/commons';
+import { Row } from 'antd';
 
 
 export default class LandingPage extends React.Component{
@@ -54,7 +55,7 @@ export default class LandingPage extends React.Component{
         owner: 'Loken Hong',
         stock: 'Tersedia',
         price: 'Rp. 100.000',
-        image: IMAGES.BOOK1,
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
         id: 1
       },
       {
@@ -63,8 +64,62 @@ export default class LandingPage extends React.Component{
         owner: 'Loken Hong',
         stock: 'Tersedia',
         price: 'Rp. 100.000',
-        image: IMAGES.BOOK2,
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
         id: 2
+      },
+      {
+        title: 'Buku 2',
+        estimasi: '3',
+        owner: 'Loken Hong',
+        stock: 'Tersedia',
+        price: 'Rp. 100.000',
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
+        id: 3
+      },
+      {
+        title: 'Buku 2',
+        estimasi: '3',
+        owner: 'Loken Hong',
+        stock: 'Tersedia',
+        price: 'Rp. 100.000',
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
+        id: 4
+      },
+      {
+        title: 'Buku 2',
+        estimasi: '3',
+        owner: 'Loken Hong',
+        stock: 'Tersedia',
+        price: 'Rp. 100.000',
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
+        id: 5
+      },
+      {
+        title: 'Buku 2',
+        estimasi: '3',
+        owner: 'Loken Hong',
+        stock: 'Tersedia',
+        price: 'Rp. 100.000',
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
+        id: 6
+      },
+      {
+        title: 'Buku 2',
+        estimasi: '3',
+        owner: 'Loken Hong',
+        stock: 'Tersedia',
+        price: 'Rp. 100.000',
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
+        id: 7
+      },
+      {
+        title: 'Buku 2',
+        estimasi: '3',
+        owner: 'Loken Hong',
+        stock: 'Tersedia',
+        price: 'Rp. 100.000',
+        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
+        id: 8
       },
     ]
     const { isLogin, name, token, id } = this.state;
@@ -79,9 +134,10 @@ export default class LandingPage extends React.Component{
             <h1>Selamat datang , {name} </h1>) : this.renderButton()
           }
         </div>
-        <div className="cardProduct">
-          <h1>Produk</h1>
-          <div className="cardProductContent">
+        <h1 className={ classes.titleProduct }>Produk</h1>
+        <div className={ classes.cardProduct }>
+          <div className= { classes.cardProductContent }>
+          <Row>
             {data.map((item) => {
               return(
                 <Card
@@ -96,6 +152,7 @@ export default class LandingPage extends React.Component{
               )
             }
             )}
+          </Row>
           </div>
         </div>
       </div>
