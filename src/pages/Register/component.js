@@ -1,13 +1,12 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ButtonFilled, TextInput } from '../../components/elements';
+import { ButtonFilled, TextInput, Footer } from '../../components/elements';
 import { ROUTES, API } from '../../configs';
 import axios from 'axios';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { registerSchema } from '../../utils/schemas';
-import { setUserSession } from '../../utils/commons';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export default class Register extends React.Component {
@@ -121,17 +120,14 @@ export default class Register extends React.Component {
             type="password"
             onFocus={this.handleFocus.bind(this, 'hintPassword')}
           />
-          <div className="forgotPassWrapper">
-            <Link className="forgotPassword">Lupa Password?</Link>
-          </div>
           <div className="buttonWrapper">
             <ButtonFilled type="submit" disabled={isSubmitting} >
-              Masuk
+              Daftar
             </ButtonFilled>
           </div>
           <div className="registerWrapper">
-            <p className="registerText">Belum punya akun?</p>
-            <Link to={ROUTES.REGISTER()} className="registerLink">Daftar</Link>
+            <p className="registerText">Sudah punya akun?</p>
+            <Link to={ROUTES.LOGIN()} className="registerLink">Login</Link>
           </div>
         </div>
       </form>
@@ -147,6 +143,9 @@ export default class Register extends React.Component {
         <CssBaseline />
         <div className={classes.cardRegister}>
           <div className="cardRegisterHeader">
+            <Link to={ROUTES.LANDING_PAGE()} className="backButton">
+              <ArrowBackIcon />
+            </Link>
             <h1>Daftar</h1>
           </div>
           <div className="cardRegisterBody">
@@ -158,6 +157,7 @@ export default class Register extends React.Component {
             />
           </div>
         </div>
+        <Footer />
       </div>
     );
   }

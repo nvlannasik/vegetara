@@ -1,7 +1,7 @@
 const Styles = (theme) => ({
   buttonFilled: {
     padding: '10px 20px',
-    borderRadius: '10px',
+    borderRadius: '5px',
     border: 'none',
     backgroundColor: '#7DCE13',
     cursor: 'pointer',
@@ -15,9 +15,11 @@ const Styles = (theme) => ({
     },
     '&:hover': {
       backgroundColor: '#8FCF3C',
+      color: '#fff',
     },
     '&:focus': {
       backgroundColor: '#8FCF3C',
+      color: '#fff',
     },
   }
 

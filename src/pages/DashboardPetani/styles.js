@@ -121,6 +121,7 @@ const Syles = (theme) => ({
         display: 'block',
       },
       '& .informasiWrapper1': {
+        marginTop: '20px',
         '@media (max-width: 1299px)': {
          marginRight: '0',
         },
@@ -172,6 +173,7 @@ const Syles = (theme) => ({
         },
       },
       '& .informasiWrapper2': {
+        marginTop: '20px',
         backgroundColor: 'rgba(125, 206, 19, 0.5)',
         width: '100%',
         marginLeft: '5px',

@@ -18,7 +18,11 @@ const Style = () => ({
     paddingTop : 15,
     flexDirection: "column",
     justifyContent: "center",
-    cursor : "pointer"
+    cursor: "pointer",
+    '@media (max-width: 768px)': {
+      width: 200,
+      height: 250,
+    },
   },
 
   titleCard: {
@@ -43,7 +47,10 @@ const Style = () => ({
   },
 
   cardContent: {
-    marginTop : 10,
+    marginTop: 10,
+    '@media (max-width: 768px)': {
+      marginTop: 0,
+    },
   },
 
   estimasi : {
@@ -63,7 +70,11 @@ const Style = () => ({
     borderRadius : 10,
     color : "white",
     paddingTop : 15,
-    backgroundColor : "#7DCE13",
+    backgroundColor: "#7DCE13",
+    '@media (max-width: 768px)': {
+      fontSize: '12px',
+      padding: '5px 10px',
+    },
   }
 });
 

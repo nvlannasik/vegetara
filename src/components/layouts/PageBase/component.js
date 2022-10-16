@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SearchBar } from '../../elements';
+import { SearchBar, ButtonFilled, ButtonGhost } from '../../elements';
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -78,7 +78,7 @@ export default class PageBase extends React.Component{
 
   _renderSidebar() {
     const { classes } = this.props;
-    const { sidebarOpen, name } = this.state;
+    const { sidebarOpen} = this.state;
     return (
       <div className={clsx({ [classes.sidebarHide]: sidebarOpen === false, [classes.sidebarShow]: sidebarOpen === true })} >
         <div className="sidebar">
@@ -110,18 +110,10 @@ export default class PageBase extends React.Component{
   }
 
   _renderRightElement() {
-    const { badge } = this.props;
     return (
       <div className="rightElement">
         <div className="searchBar">
-          <SearchBar />
-        </div>
-        <div className="trolli">
-          <Link >
-          <Badge badgeContent={badge} color="primary">
-            <AddShoppingCartIcon />
-          </Badge>
-          </Link>
+          {this.renderButton()}
         </div>
         <div className="menuIcon">
           <MenuIcon onClick={this.handleClick} />
@@ -130,11 +122,36 @@ export default class PageBase extends React.Component{
     );
   }
   _renderAkun() {
-    const { name } = this.state;
+    const { name , badge } = this.state;
     return (
       <div className="rightElement">
-        {name}
+        <div className="trolli">
+          <Link >
+            <Badge badgeContent={badge} color="primary">
+              <AddShoppingCartIcon />
+            </Badge>
+          </Link>
+        </div>
+        <div className="avatar">
+          <div className="avatarImage">
+            <h2>{name[0].toUpperCase()}</h2>
+          </div>
+          <div className='username'>
+            <h2>{name}</h2>
+          </div>
+          <div className="menuIcon">
+            <MenuIcon onClick={this.handleClick} />
+          </div>
+        </div>
       </div>
+    );
+  }
+  renderButton = () => {
+    return (
+      <>
+        <ButtonFilled className="btn-login" link={ROUTES.LOGIN()}>Login</ButtonFilled>
+        <ButtonGhost className="btn-register" link={ROUTES.REGISTER()}>Register</ButtonGhost>
+      </>
     );
   }
 
@@ -152,7 +169,7 @@ export default class PageBase extends React.Component{
             <div className="menuItem">
               <ul>
                 <li>
-                  <Link to={ROUTES.ABOUT()} className={classes.link}>Beranda</Link>
+                  <Link to={ROUTES.LANDING_PAGE()} className={classes.link}>Beranda</Link>
                 </li>
                 <li><Link to={ROUTES.ABOUT()}>Tentang Kami</Link></li>
                 <li><Link to={ROUTES.ABOUT()} >Kontak</Link></li>

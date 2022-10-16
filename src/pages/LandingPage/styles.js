@@ -1,6 +1,7 @@
 const styles = () => ({
   landingPage: {
     width: '100%',
+    
     '& img': {
       width: '100%',
       height: '100%',
@@ -33,14 +34,14 @@ const styles = () => ({
   },
 
   cardProduct: {
-    padding: "0px 55px 20px 55px",
-    // display: 'flex',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+   
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 20,
   },
   
   titleProduct : {
-    padding: "0px 55px 20px 60px",
+    textAlign: 'center',
   }
 
 })

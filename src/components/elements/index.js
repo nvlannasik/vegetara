@@ -5,6 +5,7 @@ import _TextInput from './TextInput';
 import _Footer from './Footer';
 import _Card from './Card';
 import _ButtonFilled2 from './ButtonFilled2';
+import _ModalExpired from './ModalExpired';
 
 export const SearchBar = _SearchBar;
 export const ButtonFilled = _ButtonFilled;
@@ -13,3 +14,4 @@ export const TextInput = _TextInput;
 export const Footer = _Footer;
 export const Card = _Card;
 export const ButtonFilled2 = _ButtonFilled2;
+export const ModalExpired = _ModalExpired;

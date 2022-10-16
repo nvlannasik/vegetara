@@ -25,6 +25,9 @@ const routes = {
   },
   DASBOARD_PETANI() {
     return '/dashboard-petani';
+  },
+  CREATE_PRODUCT() {
+    return '/create-product';
   }
 }
 

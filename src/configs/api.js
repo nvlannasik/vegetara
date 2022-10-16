@@ -1,4 +1,5 @@
 const baseUrl = 'https://innovillage-api-c6uhvn24vq-et.a.run.app/';
+const createProduct ='https://backend-af5jy3kosq-et.a.run.app/'
 
 const header = {
   'Content-Type': 'application/json',
@@ -14,4 +15,5 @@ export default {
   headerRegister,
   login: baseUrl + 'api/user/login',
   register: baseUrl + 'api/user/register',
+  createProduct: createProduct + '/api/product',
 };

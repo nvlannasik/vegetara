@@ -7,7 +7,7 @@ import propTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import { deepOrange } from '@mui/material/colors';
 
-export default class PagePetani extends React.Component{
+export default class PageAdmin extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +51,7 @@ export default class PagePetani extends React.Component{
   }
 }
 
-PagePetani.propTypes = {
+PageAdmin.propTypes = {
   classes: propTypes.object.isRequired,
   children: propTypes.node.isRequired,
 };

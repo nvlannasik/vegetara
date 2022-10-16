@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { loginSchema } from '../../utils/schemas';
 import { setUserSession } from '../../utils/commons';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default class Login extends React.Component{
   constructor(props) {
@@ -27,8 +28,8 @@ export default class Login extends React.Component{
     axios.post(API.login, body, API.header)
       .then((res) => {
         if (res.status === 200) {
-          // window.location.href = ROUTES.LANDING_PAGE()
           setUserSession(res.data.accessToken, res.data.data)
+          window.location.href = ROUTES.LANDING_PAGE()
         }
       })
       .catch((err) => {
@@ -93,6 +94,9 @@ export default class Login extends React.Component{
       <div className={classes.container}>
         <div className={classes.cardLogin}>
           <div className="cardLoginHeader">
+            <Link to={ROUTES.LANDING_PAGE()} className="backButton">
+              <ArrowBackIcon />
+            </Link>
             <h1>Masuk</h1>
           </div>
           <div className="cardLoginBody">

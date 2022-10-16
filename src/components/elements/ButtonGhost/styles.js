@@ -16,10 +16,12 @@ const Styles = (theme) => ({
     '&:hover': {
       backgroundColor: '#FFFFFF',
       border: '1px solid #8FCF3C',
+      color: '#8FCF3C',
     },
     '&:focus': {
       backgroundColor: '#FFFFFF',
       border: '1px solid #8FCF3C',
+      color: '#8FCF3C',
     },
   }
 

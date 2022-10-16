@@ -7,6 +7,7 @@ import LoginAdmin from "./LoginAdmin";
 import LoginPetani from "./LoginPetani";
 import DasboardAdmin from "./DashboardAdmin";
 import DasboardPetani from "./DashboardPetani";
+import CreateProduct from "./CreateProduct";
 
 
 const pages ={
@@ -18,7 +19,8 @@ const pages ={
   LoginAdmin,
   LoginPetani,
   DasboardAdmin,
-  DasboardPetani
+  DasboardPetani,
+  CreateProduct
 }
 
 export default pages;

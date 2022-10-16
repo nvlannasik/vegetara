@@ -16,9 +16,8 @@ const styles = (theme) => ({
     padding: '0 55px 0 50px',
     transition: 'all 0.5s ease',
     '@media (min-width: 768px) and (max-width: 1299px)': {
-      backgroundColor: 'transparent',
       width: '100%',
-      position: 'absolute',
+      position: 'relative',
     },
     '@media (max-width: 767px)': {
       padding: '0 40px 0 40px',
@@ -31,9 +30,6 @@ const styles = (theme) => ({
         fontSize: 32,
         fontWeight: 'bold',
         fontFamily: 'Baumans, cursive',
-        '@media (max-width: 1299px)': {
-          color:'white'
-        },
         '@media (max-width: 767px)': {
           fontSize: 24,
           color: '#7DCE13',
@@ -59,27 +55,22 @@ const styles = (theme) => ({
             '&:hover': {
               color: '#7DCE13',
             },
-            '& .Link': {
+            '& a': {
               textDecoration: 'none',
+              color: '#757575',
             },
           },
         },
       },
     },
     '& .rightElement': {
-      display: 'flex',
-      '& .searchBar': {
-        '@media (max-width: 1299px)': {
-          display: 'none',
-        },
-      },
       '& .trolli': {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: 20,
+        marginRight: 20,
         height: 40,
-        
+
         '& svg': {
           color: '#757575',
           cursor: 'pointer',
@@ -92,6 +83,53 @@ const styles = (theme) => ({
           },
         },
       },
+      '& .avatar': {
+        display: 'flex',
+        alignItems: 'center',
+        
+        '& .menuIcon': {
+          display: 'none',
+          '@media (max-width: 1299px)': {
+            display: 'flex',
+          },
+        },
+        '& .username': {
+          alignItems: 'center',
+          display: 'flex',  
+          '& h2': {
+            margin: 0
+          },
+          '@media (max-width: 1299px)': {
+            display: 'none',
+          },
+        },
+        '& .avatarImage': {
+          width: 40,
+          height: 40,
+          borderRadius: '100%',
+          backgroundColor: '#7DCE13',
+          justifyContent: 'center',
+          display: 'flex',
+          marginRight: 10,
+          padding: '2px 0px',
+          '@media (max-width: 1299px)': {
+            display: 'none',
+          },
+        },
+
+      },
+      display: 'flex',
+      '& .searchBar': {
+        '@media (max-width: 767px)': {
+          display: 'none',
+        },
+        display: 'flex',
+        justifyContent: 'space-between',
+        '& a': {
+          marginRight: 20,
+        }
+      },
+      
       '& .menuIcon': {
         display: 'none',
         '@media (max-width: 767px)': {

@@ -16,6 +16,7 @@ function Path(){
         <Route exact path={ROUTES.LOGIN_PETANI()} element={<pages.LoginPetani />} />
         <Route exact path={ROUTES.DASBOARD_ADMIN()} element={<pages.DasboardAdmin />} />
         <Route exact path={ROUTES.DASBOARD_PETANI()} element={<pages.DasboardPetani />} />
+        <Route exact path={ROUTES.CREATE_PRODUCT()} element={<pages.CreateProduct />} />
       </Routes>
     </Router>
   )

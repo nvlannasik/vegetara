@@ -7,11 +7,12 @@ export const loginSchema = Yup.object().shape({
 });
 
 export const registerSchema = Yup.object().shape({
-  username:Yup.string().required('Username tidak boleh kosong')
+  username: Yup.string().required('Username tidak boleh kosong')
     .min(6, 'Username minimal 6 karakter')
     .max(20, 'Username maksimal 20 karakter')
-    .matches(REGEX.username, 'username harus terdiri dari'),
+    .matches(REGEX.username, 'Username hanya boleh huruf kecil, angka, dan tanpa spasi'),
   password: Yup.string().required('Password tidak boleh kosong')
+    .min(8, 'Password minimal 8 karakter')
     .matches(REGEX.password, 'Password hanya boleh mengandung huruf dan angka'),
   email: Yup.string().email('Email tidak valid').required('Email tidak boleh kosong')
     .matches(REGEX.email, 'Email tidak valid'),

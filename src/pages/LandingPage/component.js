@@ -1,5 +1,5 @@
 import React from 'react';
-import { ButtonFilled, ButtonGhost, Card } from '../../components/elements';
+import { ButtonFilled, ButtonGhost, Card, ModalExpired } from '../../components/elements';
 import PageBase from '../../components/layouts/PageBase';
 import { IMAGES, ROUTES } from '../../configs';
 import { getUserSession } from '../../utils/commons';
@@ -12,15 +12,18 @@ export default class LandingPage extends React.Component{
     this.state = {
       isLogin: false,
       name: '',
+      isModalExpired: false,
+      role: '',
     };
   }
 
 
   componentDidMount() { 
     const user = getUserSession();
-    const { name } = user;
-    console.log(user);
-    this.setState({ isLogin: true, name});
+    const { name, role } = user;
+    if (role === 'user') {
+      this.setState({ isLogin: true, name });
+    }
   }
 
 
@@ -37,14 +40,19 @@ export default class LandingPage extends React.Component{
     localStorage.setItem('id', id);
     sessionStorage.setItem('path', window.location.pathname);
   }
-
-  renderButton = () => {
-    return (
-      <>
-        <ButtonFilled className="btn-login" link={ROUTES.LOGIN()}>Login</ButtonFilled>
-        <ButtonGhost className="btn-register" link={ROUTES.REGISTER()}>Register</ButtonGhost></>
-    );
+  handleModalExpired = () => {
+    this.setState({ isModalExpired: !this.state.isModalExpired });
   }
+  renderModalExpired = () => {
+    const { isModalExpired } = this.state;
+    return (
+      <ModalExpired
+        open={isModalExpired}
+        handleClose={()=> window.location.href= ROUTES.LOGIN()}
+        />
+      );
+    }
+  
 
   render() {
     const { classes } = this.props;
@@ -126,17 +134,14 @@ export default class LandingPage extends React.Component{
   return(
     <PageBase>
       <div className={classes.landingPage}>
+        {this.renderModalExpired()}
         <div>
           <img src={IMAGES.BANNER} alt="landingPage" />
         </div>
-        <div className="landingPageContent">
-          {isLogin === true? (
-            <h1>Selamat datang , {name} </h1>) : this.renderButton()
-          }
-        </div>
-        <h1 className={ classes.titleProduct }>Produk</h1>
-        <div className={ classes.cardProduct }>
-          <div className= { classes.cardProductContent }>
+        
+        <div className={classes.cardProduct}>
+          <div className={classes.cardProductContent}>
+            <h1 className={classes.titleProduct}>Produk</h1>
           <Row>
             {data.map((item) => {
               return(
@@ -147,7 +152,7 @@ export default class LandingPage extends React.Component{
                   stock={item.stock}
                   price={item.price}
                   image={item.image}
-                  onClick={() => this.handleRouteCard(item.id)}
+                  onClick={name ? this.handleRouteCard.bind(item.id) : this.handleModalExpired}
                 />
               )
             }
@@ -160,3 +165,4 @@ export default class LandingPage extends React.Component{
   );
 }
 }
+
