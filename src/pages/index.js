@@ -8,6 +8,7 @@ import LoginPetani from "./LoginPetani";
 import DasboardAdmin from "./DashboardAdmin";
 import DasboardPetani from "./DashboardPetani";
 import CreateProduct from "./CreateProduct";
+import CheckoutPage from "./Checkout";
 
 
 const pages ={
@@ -20,7 +21,8 @@ const pages ={
   LoginPetani,
   DasboardAdmin,
   DasboardPetani,
-  CreateProduct
+  CreateProduct,
+  CheckoutPage
 }
 
 export default pages;

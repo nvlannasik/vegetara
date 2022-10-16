@@ -1,3 +1,5 @@
+import Checkout from "../pages/Checkout";
+
 const routes = {
   LANDING_PAGE(){
     return '/';
@@ -28,6 +30,9 @@ const routes = {
   },
   CREATE_PRODUCT() {
     return '/create-product';
+  },
+  CHECKOUT(){
+    return '/checkout';
   }
 }
 
