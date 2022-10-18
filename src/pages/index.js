@@ -9,6 +9,7 @@ import DasboardAdmin from "./DashboardAdmin";
 import DasboardPetani from "./DashboardPetani";
 import CreateProduct from "./CreateProduct";
 import CheckoutPage from "./Checkout";
+import ChartPage from "./Chart";
 
 
 const pages ={
@@ -22,7 +23,8 @@ const pages ={
   DasboardAdmin,
   DasboardPetani,
   CreateProduct,
-  CheckoutPage
+  CheckoutPage,
+  ChartPage
 }
 
 export default pages;

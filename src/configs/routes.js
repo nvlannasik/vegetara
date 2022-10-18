@@ -33,7 +33,10 @@ const routes = {
   },
   CHECKOUT(){
     return '/checkout';
+  },
+  CHART(){
+    return '/chart';
   }
 }
 
-export default routes
+export default routes 

@@ -18,6 +18,7 @@ function Path(){
         <Route exact path={ROUTES.DASBOARD_PETANI()} element={<pages.DasboardPetani />} />
         <Route exact path={ROUTES.CREATE_PRODUCT()} element={<pages.CreateProduct />} />
         <Route exact path={ROUTES.CHECKOUT()} element={<pages.CheckoutPage />} />
+        <Route exact path={ROUTES.CHART()} element={<pages.ChartPage />} />
       </Routes>
     </Router>
   )
