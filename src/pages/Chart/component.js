@@ -1,7 +1,7 @@
 import React from 'react';
 import PageBase from '../../components/layouts/PageBase';
 import { PlusCircleOutlined, MinusCircleOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Row,Col,Select } from 'antd';
+import { Row,Col } from 'antd';
 
 export default class ChartPage extends React.Component{
     constructor(props) {
@@ -43,8 +43,8 @@ export default class ChartPage extends React.Component{
                             <div className= { classes.titlechart }>
                                 <h2 className={ classes.h2checkout }>Keranjang</h2>
                             </div>
-                            <div className= { classes.selectAll }>
-                                <input type="checkbox" /> <span style={{ fontSize: "15px", marginLeft: 5,}}>Pilih Semua Item</span>
+                            <div className= { classes.selectAllSection }>
+                                <input type="checkbox" /> <span className={ classes.selectAll }>Pilih Semua Item</span>
                             </div>
                         </div>
                         <Row className={ classes.priceDetails } justify="center" align="middle">
@@ -52,48 +52,48 @@ export default class ChartPage extends React.Component{
                                 <input type="checkbox" />
                             </Col>
                             <Col span={5} align="center">
-                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  style={{ borderRadius: 10 }} alt="cardImage" width={"98%"}/>
+                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  className={ classes.imageRadius } alt="cardImage" width={"98%"}/>
                             </Col>
                             <Col span={18} className={ classes.descItems }>
                                 <p className={ classes.titleItems}>Nama Barang yang mau di checkout</p>
                                 <p className={ classes.hargaItems }>Total Harga : 250.000</p>
                                 <div className={ classes.costumizeItems }>
                                     <div className={ classes.operation}>
-                                        <button onClick={this.handleMinus} className={ classes.plusMinusButton }><MinusCircleOutlined style={{ fontSize: '18px', color: '#7DCE13'}}/></button>
+                                        <button onClick={this.handleMinus} className={ classes.plusMinusButton }><MinusCircleOutlined className={ classes.plusminusIcon } /></button>
                                         <span className={ classes.counterText }>{this.state.count}</span>
-                                        <button onClick={this.handleAdd} className={ classes.plusMinusButton }><PlusCircleOutlined style={{ fontSize: '18px', color: '#7DCE13'}}/></button>
+                                        <button onClick={this.handleAdd} className={ classes.plusMinusButton }><PlusCircleOutlined className={ classes.plusminusIcon }/></button>
                                     </div>
                                     <div className={ classes.dropItems }>
-                                        <button className={ classes.deleteButton }><DeleteOutlined style={{ fontSize: '18px', color: 'red'}}/></button>
+                                        <button className={ classes.deleteButton }><DeleteOutlined className={ classes.deleteIcon }/></button>
                                     </div>
                                 </div>
                             </Col>
                         </Row>
-                        <hr style={{ border : "3px solid #F3F4F5", marginBottom: 20}}></hr>
+                        <hr className={ classes.breakLine }></hr>
                         
                         <Row className={ classes.priceDetails } justify="center" align="middle">
                             <Col span={1}>
                                 <input type="checkbox" />
                             </Col>
                             <Col span={5} align="center">
-                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  style={{ borderRadius: 10 }} alt="cardImage" width={"98%"}/>
+                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  className={ classes.imageRadius } alt="cardImage" width={"98%"}/>
                             </Col>
                             <Col span={18} className={ classes.descItems }>
                                 <p className={ classes.titleItems}>Nama Barang yang mau di checkout</p>
                                 <p className={ classes.hargaItems }>Total Harga : 250.000</p>
                                 <div className={ classes.costumizeItems }>
                                     <div className={ classes.operation}>
-                                        <button onClick={this.handleMinus} className={ classes.plusMinusButton }><MinusCircleOutlined style={{ fontSize: '18px', color: '#7DCE13'}}/></button>
+                                        <button onClick={this.handleMinus} className={ classes.plusMinusButton }><MinusCircleOutlined className={ classes.plusminusIcon } /></button>
                                         <span className={ classes.counterText }>{this.state.count}</span>
-                                        <button onClick={this.handleAdd} className={ classes.plusMinusButton }><PlusCircleOutlined style={{ fontSize: '18px', color: '#7DCE13'}}/></button>
+                                        <button onClick={this.handleAdd} className={ classes.plusMinusButton }><PlusCircleOutlined className={ classes.plusminusIcon }/></button>
                                     </div>
                                     <div className={ classes.dropItems }>
-                                        <button className={ classes.deleteButton }><DeleteOutlined style={{ fontSize: '18px', color: 'red'}}/></button>
+                                        <button className={ classes.deleteButton }><DeleteOutlined className={ classes.deleteIcon }/></button>
                                     </div>
                                 </div>
                             </Col>
                         </Row>
-                        <hr style={{ border : "3px solid #F3F4F5", marginBottom: 20}}></hr>
+                        <hr className={ classes.breakLine }></hr>
                         
 
                     </Col>
@@ -122,10 +122,10 @@ export default class ChartPage extends React.Component{
 
                             <Row className={ classes.totalPrice } align="center">
                                 <Col span={16} align="left">
-                                    <p style={{ fontSize: "18px" }}>Total Harga</p>
+                                    <p className={ classes.overallPrice }>Total Harga</p>
                                 </Col>
                                 <Col span={8} align="right">
-                                    <p style={{ fontSize: "18px" }}>250.000</p>
+                                    <p className={ classes.overallPrice }>250.000</p>
                                 </Col>
                             </Row>
                             <div className={ classes.wrapperButton } align="center">

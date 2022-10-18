@@ -15,7 +15,7 @@ export default class CheckoutPage extends React.Component{
                         <h2 className={ classes.h2checkout }>Barang yang dibeli</h2>
                         <Row className={ classes.priceDetails } align="center">
                             <Col span={6} align="center">
-                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  style={{ borderRadius: 10 }} alt="cardImage" width={"98%"}/>
+                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  className={ classes.imageRadius } alt="cardImage" width={"98%"}/>
                             </Col>
                             <Col span={18} className={ classes.descItems }>
                                 <p className={ classes.titleItems}>Nama Barang yang mau di checkout</p>
@@ -25,7 +25,7 @@ export default class CheckoutPage extends React.Component{
                         </Row>
                         <Row className={ classes.priceDetails } align="center">
                             <Col span={6} align="center">
-                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  style={{ borderRadius: 10 }} alt="cardImage" width={"98%"}/>
+                                <img src="https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png"  className={ classes.imageRadius } alt="cardImage" width={"98%"}/>
                             </Col>
                             <Col span={18} className={ classes.descItems }>
                                 <p className={ classes.titleItems}>Nama Barang yang mau di checkout</p>
@@ -41,7 +41,7 @@ export default class CheckoutPage extends React.Component{
                         
                         <div className={ classes.pengiriman}>
                             <p>Pilih Jasa Pengiriman</p>
-                            <Select defaultValue="Ojek Pengkolan" style={{ width: "100%"}}>
+                            <Select defaultValue="Ojek Pengkolan" className={ classes.selectLayanan }>
                                 <Option value="Ojek Pengkolan">Ojek Pengkolan</Option>
                                 <Option value="Ojek Online">Ojek Online</Option>
                                 <Option value="Ambil Ditempat">Ambil Ditempat</Option>
@@ -75,10 +75,10 @@ export default class CheckoutPage extends React.Component{
 
                             <Row className={ classes.totalPrice } align="center">
                                 <Col span={16} align="left">
-                                    <p style={{ fontSize: "18px" }}>Total Tagihan</p>
+                                    <p className={ classes.overallPrice }>Total Tagihan</p>
                                 </Col>
                                 <Col span={8} align="right">
-                                    <p style={{ fontSize: "18px" }}>230.000</p>
+                                    <p className={ classes.overallPrice }>230.000</p>
                                 </Col>
                             </Row>
                             <div className={ classes.wrapperButton } align="center">

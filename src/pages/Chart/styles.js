@@ -137,11 +137,39 @@ const Style = () => ({
         justifyContent : "space-between",
     },
 
-    selectAll: {
+    selectAllSection: {
         paddingTop: 10,
         paddingBottom: 30,
         color : "#7DCE13",
         fontWeight :"bold",
+    },
+
+    selectAll: {
+        fontSize: "15px", 
+        marginLeft: 5,
+    },
+
+    imageRadius: {
+        borderRadius: 10
+    },
+
+    plusminusIcon: {
+        fontSize: '18px', 
+        color: '#7DCE13'
+    },
+
+    deleteIcon: {
+        fontSize: '18px', 
+        color: 'red'
+    },
+
+    breakLine: {
+        border : "3px solid #F3F4F5", 
+        marginBottom: 20
+    },
+
+    overallPrice : {
+        fontSize: "18px"
     }
 });
 
