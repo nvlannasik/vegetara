@@ -1,51 +1,93 @@
-import React from 'react';
+import React from "react";
 
-import { SearchBar, ButtonFilled, ButtonGhost } from '../../elements';
+import { SearchBar, ButtonFilled, ButtonGhost, ModalExpired } from "../../elements";
 
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import MenuIcon from '@mui/icons-material/Menu';
-import { ROUTES } from '../../../configs';
-import { Link } from 'react-router-dom';
-import { getUserSession } from '../../../utils/commons';
-import { SwipeableDrawer, Divider, IconButton } from '@mui/material';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import HomeIcon from '@mui/icons-material/Home';
-import { Footer } from '../../elements';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import InfoIcon from '@mui/icons-material/Info';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import MenuIcon from "@mui/icons-material/Menu";
+import { ROUTES, API } from "../../../configs";
+import { Link } from "react-router-dom";
+import { getUserSession } from "../../../utils/commons";
+import { SwipeableDrawer, Divider, IconButton } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import HomeIcon from "@mui/icons-material/Home";
+import { Footer } from "../../elements";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import InfoIcon from "@mui/icons-material/Info";
+import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import Badge from "@material-ui/core/Badge";
-import propTypes from 'prop-types';
+import propTypes from "prop-types";
+import axios from "axios";
+import LogoutIcon from "@mui/icons-material/Logout";
 
+import clsx from "clsx";
 
-import clsx from 'clsx';
-
-export default class PageBase extends React.Component{
+export default class PageBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       sidebarOpen: false,
-      name: '',
-      
+      name: "",
+      token: "",
+      isLogin: false,
     };
   }
 
   componentDidMount() {
     const user = getUserSession();
-    const { name } = user;
-    this.setState({ user, name });
+    const { name, accessToken } = user;
+    const { pathname } = window.location;
+    this.setState({ name });
+    this.handleCheckToken(accessToken);
   }
 
   handleClick = () => {
     this.setState({ sidebarOpen: !this.state.sidebarOpen });
-  }
+  };
 
+  handleCheckToken = (accessToken) => {
+    const headers = {
+      "Content-Type": "application/json",
+      "x-auth-token": accessToken,
+    };
+    axios.get(API.checkTokenUser, { headers }).then(() => {
+      this.setState({ isLogin: true });
+      this.handleCheckRoute();
+    }).catch((res) => {
+      res.response.status === 401 && this.handleCheckRoute();
+    });
+
+    console.log(this.state.isLogin);
+  };
+  handleCheckRoute = () => {
+    const { isLogin } = this.state;
+    const { pathname } = window.location;
+    console.log(pathname !== "/");
+    console.log(isLogin);
+    if (isLogin === false && pathname !== "/") {
+      window.location.href = "/";
+    } 
+  }
+  handleLogout = () => {
+    localStorage.clear();
+    window.location.href = ROUTES.LOGIN();
+  };
+
+  _renderModalExpired() {
+    const { isLogin } = this.state;
+    const { pathname } = window.location;
+    return (
+      <ModalExpired
+        open={!isLogin && pathname !== "/"}
+        handleClose={this.handleLogout}
+      />
+    )
+  }
   _renderDrawer() {
     const { classes } = this.props;
     const { sidebarOpen } = this.state;
     return (
-      <SwipeableDrawer 
+      <SwipeableDrawer
         open={sidebarOpen}
         onClose={this.handleClick}
         onOpen={this.handleClick}
@@ -59,15 +101,21 @@ export default class PageBase extends React.Component{
         <Divider />
         <List>
           <ListItem button key="Home">
-            <ListItemIcon><HomeIcon /></ListItemIcon>
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
           <ListItem button key="About">
-            <ListItemIcon><InfoIcon /></ListItemIcon>
+            <ListItemIcon>
+              <InfoIcon />
+            </ListItemIcon>
             <ListItemText primary="Tentang Kami" />
           </ListItem>
           <ListItem button key="Contact">
-            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
             <ListItemText primary="Kontak" />
           </ListItem>
         </List>
@@ -75,25 +123,29 @@ export default class PageBase extends React.Component{
     );
   }
 
-
   _renderSidebar() {
     const { classes } = this.props;
-    const { sidebarOpen} = this.state;
+    const { sidebarOpen } = this.state;
     return (
-      <div className={clsx({ [classes.sidebarHide]: sidebarOpen === false, [classes.sidebarShow]: sidebarOpen === true })} >
+      <div
+        className={clsx({
+          [classes.sidebarHide]: sidebarOpen === false,
+          [classes.sidebarShow]: sidebarOpen === true,
+        })}
+      >
         <div className="sidebar">
-        <div className="sidebarBody">
-          <div className="sidebarBodyItem">
-            <Link to={ROUTES.LANDING_PAGE()}>
-              <h1>Home</h1>
-            </Link>
-          </div>
-          <div className="sidebarBodyItem">
+          <div className="sidebarBody">
+            <div className="sidebarBodyItem">
+              <Link to={ROUTES.LANDING_PAGE()}>
+                <h1>Home</h1>
+              </Link>
+            </div>
+            <div className="sidebarBodyItem">
               <Link to={ROUTES.LANDING_PAGE()}>
                 <h1>Kontak Kami</h1>
               </Link>
-          </div>
-          <div className="sidebarBodyItem">
+            </div>
+            <div className="sidebarBodyItem">
               <Link to={ROUTES.LANDING_PAGE()}>
                 <h1>Kontak Kami</h1>
               </Link>
@@ -112,9 +164,7 @@ export default class PageBase extends React.Component{
   _renderRightElement() {
     return (
       <div className="rightElement">
-        <div className="searchBar">
-          {this.renderButton()}
-        </div>
+        <div className="searchBar">{this.renderButton()}</div>
         <div className="menuIcon">
           <MenuIcon onClick={this.handleClick} />
         </div>
@@ -122,11 +172,11 @@ export default class PageBase extends React.Component{
     );
   }
   _renderAkun() {
-    const { name , badge } = this.state;
+    const { name, badge } = this.state;
     return (
       <div className="rightElement">
         <div className="trolli">
-          <Link >
+          <Link>
             <Badge badgeContent={badge} color="primary">
               <AddShoppingCartIcon />
             </Badge>
@@ -136,8 +186,13 @@ export default class PageBase extends React.Component{
           <div className="avatarImage">
             <h2>{name[0].toUpperCase()}</h2>
           </div>
-          <div className='username'>
+          <div className="username">
             <h2>{name}</h2>
+          </div>
+          <div className="logout">
+            <button onClick={this.handleLogout}>
+              <LogoutIcon />
+            </button>
           </div>
           <div className="menuIcon">
             <MenuIcon onClick={this.handleClick} />
@@ -149,11 +204,15 @@ export default class PageBase extends React.Component{
   renderButton = () => {
     return (
       <>
-        <ButtonFilled className="btn-login" link={ROUTES.LOGIN()}>Login</ButtonFilled>
-        <ButtonGhost className="btn-register" link={ROUTES.REGISTER()}>Register</ButtonGhost>
+        <ButtonFilled className="btn-login" link={ROUTES.LOGIN()}>
+          Login
+        </ButtonFilled>
+        <ButtonGhost className="btn-register" link={ROUTES.REGISTER()}>
+          Register
+        </ButtonGhost>
       </>
     );
-  }
+  };
 
   _renderAppBar() {
     const { classes } = this.props;
@@ -169,10 +228,16 @@ export default class PageBase extends React.Component{
             <div className="menuItem">
               <ul>
                 <li>
-                  <Link to={ROUTES.LANDING_PAGE()} className={classes.link}>Beranda</Link>
+                  <Link to={ROUTES.LANDING_PAGE()} className={classes.link}>
+                    Beranda
+                  </Link>
                 </li>
-                <li><Link to={ROUTES.ABOUT()}>Tentang Kami</Link></li>
-                <li><Link to={ROUTES.ABOUT()} >Kontak</Link></li>
+                <li>
+                  <Link to={ROUTES.ABOUT()}>Tentang Kami</Link>
+                </li>
+                <li>
+                  <Link to={ROUTES.ABOUT()}>Kontak</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -182,18 +247,21 @@ export default class PageBase extends React.Component{
     );
   }
 
-  render(){
+  render() {
     const { children, classes } = this.props;
     const { sidebarOpen } = this.state;
     return (
-      <div className={clsx(classes.container,{ [classes.main]: sidebarOpen === true})}>
+      <div
+        className={clsx(classes.container, {
+          [classes.main]: sidebarOpen === true,
+        })}
+      >
         {this._renderAppBar()}
-        { this._renderDrawer()}
-          <main>
-            {children}
-        </main>
+        {this._renderDrawer()}
+        <main>{children}</main>
+        {this._renderModalExpired()}
         <Footer />
-        </div>
+      </div>
     );
   }
 }

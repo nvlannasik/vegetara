@@ -16,4 +16,6 @@ export default {
   login: baseUrl + 'api/user/login',
   register: baseUrl + 'api/user/register',
   createProduct: createProduct + '/api/product',
+  checkTokenUser: baseUrl + 'api/refresh-token/verify-token-user',
+  getAllProduct: baseUrl + 'api/product',
 };

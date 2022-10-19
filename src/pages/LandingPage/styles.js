@@ -12,6 +12,9 @@ const styles = () => ({
       position: 'relative',
       top: -100,
       textAlign: 'center',
+      '& button': {
+        width: 200,
+      },
       '@media (max-width: 1299px)': {
         top: -80,
       },

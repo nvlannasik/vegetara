@@ -4,7 +4,8 @@ import PageBase from '../../components/layouts/PageBase';
 import { IMAGES, ROUTES } from '../../configs';
 import { getUserSession } from '../../utils/commons';
 import { Row } from 'antd';
-
+import axios from 'axios';
+import { API } from '../../configs';
 
 export default class LandingPage extends React.Component{
   constructor(props) {
@@ -26,7 +27,9 @@ export default class LandingPage extends React.Component{
     }
   }
 
-
+  handleGetAllProduct = () => {
+    axios.get(API.getAllProduct, { headers: API.header })
+  }
   handleRouteLogin = () => {
     window.location.href = '/login';
   }
@@ -137,6 +140,9 @@ export default class LandingPage extends React.Component{
         {this.renderModalExpired()}
         <div>
           <img src={IMAGES.BANNER} alt="landingPage" />
+          <div className="landingPageContent">
+            <button>tes</button>
+          </div>
         </div>
         
         <div className={classes.cardProduct}>
