@@ -52,11 +52,12 @@ const Styles = (theme) => ({
           marginTop: 25,
         },
         '& .registerWrapper': {
-          display: 'flex',
+          display: 'inline-block',
           justifyContent: 'center',
           alignItems: 'center',
           width: '100%',
           marginTop: 25,
+          textAlign: 'center',
           '& .registerText': {
             color: '#757575',
             margin: '0'

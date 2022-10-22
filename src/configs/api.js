@@ -18,4 +18,7 @@ export default {
   createProduct: createProduct + '/api/product',
   checkTokenUser: baseUrl + 'api/refresh-token/verify-token-user',
   getAllProduct: baseUrl + 'api/product',
+  petaniRegister: baseUrl + 'api/petani/register',
+  loginPetani: baseUrl + 'api/petani/login',
+  loginAdmin: baseUrl + 'api/admin/login',
 };

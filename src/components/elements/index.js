@@ -6,6 +6,7 @@ import _Footer from './Footer';
 import _Card from './Card';
 import _ButtonFilled2 from './ButtonFilled2';
 import _ModalExpired from './ModalExpired';
+import _DragAndDrop from './DragAndDrop';
 
 export const SearchBar = _SearchBar;
 export const ButtonFilled = _ButtonFilled;
@@ -15,3 +16,4 @@ export const Footer = _Footer;
 export const Card = _Card;
 export const ButtonFilled2 = _ButtonFilled2;
 export const ModalExpired = _ModalExpired;
+export const DragAndDrop = _DragAndDrop;

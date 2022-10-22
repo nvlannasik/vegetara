@@ -20,6 +20,18 @@ export default class LoginPetani extends React.Component {
       errorMessage: ''
     };
   }
+  handleLogin = (values) => {
+    const { username, password } = values
+    const body = { "userName": username, "password": password }
+    axios.post(API.loginPetani, body, API.header)
+      .then((res) => {
+        alert(res.data.message)
+      })
+      .catch((err) => {
+        alert(err)
+      })
+  }
+
 
   handleFocus = (field) => this.setState(prevState => ({ [field]: !prevState[field] }))
   renderFormLogin = ({ values, errors, touched, handleChange: _handleChange, handleBlur: _handleBlur, handleSubmit: handleLogin, isSubmitting }) => {

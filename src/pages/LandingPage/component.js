@@ -1,174 +1,101 @@
-import React from 'react';
-import { ButtonFilled, ButtonGhost, Card, ModalExpired } from '../../components/elements';
-import PageBase from '../../components/layouts/PageBase';
-import { IMAGES, ROUTES } from '../../configs';
-import { getUserSession } from '../../utils/commons';
-import { Row } from 'antd';
-import axios from 'axios';
-import { API } from '../../configs';
+import React from "react";
+import { Card, ModalExpired, SearchBar } from "../../components/elements";
+import PageBase from "../../components/layouts/PageBase";
+import { IMAGES, ROUTES } from "../../configs";
+import { Row } from "antd";
+import axios from "axios";
+import { API } from "../../configs";
+import { get } from "lodash";
+import moment from "moment";
 
-export default class LandingPage extends React.Component{
+export default class LandingPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLogin: false,
-      name: '',
-      isModalExpired: false,
-      role: '',
-    };
+    this.state = { dataProduct: []};
   }
 
-
-  componentDidMount() { 
-    const user = getUserSession();
-    const { name, role } = user;
-    if (role === 'user') {
-      this.setState({ isLogin: true, name });
-    }
+  componentDidMount() {
+    this.handleGetAllProduct();
+    
   }
 
   handleGetAllProduct = () => {
-    axios.get(API.getAllProduct, { headers: API.header })
-  }
+    axios.get(API.getAllProduct, { headers: API.header }).then((res) => {
+      const data = get(res, "data.data.products");
+      this.setState({ dataProduct: data });
+      console.log(data);
+    });
+  };
   handleRouteLogin = () => {
-    window.location.href = '/login';
-  }
+    window.location.href = "/login";
+  };
 
   handleRouteRegister = () => {
-    window.location.href = '/register';
-  }
+    window.location.href = "/register";
+  };
 
   handleRouteCard = (id) => {
     window.location.href = ROUTES.CARD_PAGE(id);
-    localStorage.setItem('id', id);
-    sessionStorage.setItem('path', window.location.pathname);
-  }
+    console.log(id);
+    localStorage.setItem("idProduct", id);
+    sessionStorage.setItem("path", window.location.pathname);
+  };
   handleModalExpired = () => {
     this.setState({ isModalExpired: !this.state.isModalExpired });
-  }
-  renderModalExpired = () => {
-    const { isModalExpired } = this.state;
-    return (
-      <ModalExpired
-        open={isModalExpired}
-        handleClose={()=> window.location.href= ROUTES.LOGIN()}
-        />
-      );
+  };
+
+  handleEstimateTime = (date) => {
+    var dateNow = moment().format("YYYY-MM-DD");
+    var dateFuture = date
+    console.log(moment(dateFuture).format("YYYY-MM-DD"), dateNow);
+    if (moment(dateFuture).format("YYYY-MM-DD") > dateNow) {
+      let diff = moment(dateFuture).diff(moment(dateNow), "days");
+      return "Akan tersedia dalam" + diff + " hari lagi";
+    } else {
+      return "Kadaluarsa";
     }
-  
+  };
 
   render() {
     const { classes } = this.props;
-    const data = [
-      {
-        title: 'Buku 1',
-        estimasi: '2',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 1
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 2
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 3
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 4
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 5
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 6
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 7
-      },
-      {
-        title: 'Buku 2',
-        estimasi: '3',
-        owner: 'Loken Hong',
-        stock: 'Tersedia',
-        price: 'Rp. 100.000',
-        image: "https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png",
-        id: 8
-      },
-    ]
-    const { isLogin, name, token, id } = this.state;
-  return(
-    <PageBase>
-      <div className={classes.landingPage}>
-        {this.renderModalExpired()}
-        <div>
-          <img src={IMAGES.BANNER} alt="landingPage" />
-          <div className="landingPageContent">
-            <button>tes</button>
+    const { dataProduct } = this.state;
+    return (
+      <PageBase>
+        <div className={classes.landingPage}>
+          {}
+          <div>
+            <img src={IMAGES.BANNER} alt="landingPage" />
+            <div className="landingPageContent">
+              <SearchBar />
+            </div>
           </div>
-        </div>
-        
-        <div className={classes.cardProduct}>
-          <div className={classes.cardProductContent}>
-            <h1 className={classes.titleProduct}>Produk</h1>
-          <Row>
-            {data.map((item) => {
-              return(
-                <Card
-                  title={item.title}
-                  estimasi={item.estimasi}
-                  owner={item.owner}
-                  stock={item.stock}
-                  price={item.price}
-                  image={item.image}
-                  onClick={name ? this.handleRouteCard.bind(item.id) : this.handleModalExpired}
-                />
-              )
-            }
-            )}
-          </Row>
-          </div>
-        </div>
-      </div>
-    </PageBase>
-  );
-}
-}
 
+          <div className={classes.cardProduct}>
+            <div className={classes.cardProductContent}>
+              <h1 className={classes.titleProduct}>Produk</h1>
+              <Row>
+                {dataProduct.map((item, index) => {
+                  var dateNow = moment().format("YYYY-MM-DD");
+                  var dateFuture = item.harvestDate
+                  console.log(moment(dateFuture).format("YYYY-MM-DD"), dateNow);
+                  return (
+                    <Card
+                      key={index}
+                      title={item.name}
+                      estimasi={this.handleEstimateTime(item.harvestDate)}
+                      owner={item.petaniName}
+                      stock={item.stock}
+                      price={item.price}
+                      image={item.imageUrl}
+                      onClick={this.handleRouteCard.bind(this,item._id)}
+                    />
+                  );
+                })}
+              </Row>
+            </div>
+          </div>
+        </div>
+      </PageBase>
+    );
+  }
+}

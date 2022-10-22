@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SearchBar, ButtonFilled, ButtonGhost, ModalExpired } from "../../elements";
+import {  ButtonFilled, ButtonGhost, ModalExpired } from "../../elements";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -29,14 +29,13 @@ export default class PageBase extends React.Component {
       sidebarOpen: false,
       name: "",
       token: "",
-      isLogin: false,
+      isLogin: true,
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const user = getUserSession();
     const { name, accessToken } = user;
-    const { pathname } = window.location;
     this.setState({ name });
     this.handleCheckToken(accessToken);
   }
@@ -50,24 +49,26 @@ export default class PageBase extends React.Component {
       "Content-Type": "application/json",
       "x-auth-token": accessToken,
     };
-    axios.get(API.checkTokenUser, { headers }).then(() => {
-      this.setState({ isLogin: true });
-      this.handleCheckRoute();
-    }).catch((res) => {
-      res.response.status === 401 && this.handleCheckRoute();
-    });
-
-    console.log(this.state.isLogin);
+    axios.get(API.checkTokenUser, { headers })
+      .then((res) => {
+        const status = res.data.status;
+      })
+      .catch((err) => {
+        this.setState({ isLogin: false });
+        this.handleCheckRoute();
+        localStorage.clear();
+      });
   };
   handleCheckRoute = () => {
     const { isLogin } = this.state;
     const { pathname } = window.location;
-    console.log(pathname !== "/");
-    console.log(isLogin);
     if (isLogin === false && pathname !== "/") {
-      window.location.href = "/";
+      setTimeout(() => {
+        window.location.href = "/"; 
+      }, 3000);
     } 
   }
+
   handleLogout = () => {
     localStorage.clear();
     window.location.href = ROUTES.LOGIN();

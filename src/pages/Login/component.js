@@ -78,8 +78,9 @@ export default class Login extends React.Component{
             </ButtonFilled>
           </div>
           <div className="registerWrapper">
-            <p className="registerText">Belum punya akun?</p>
-            <Link to={ROUTES.REGISTER()} className="registerLink">Daftar</Link>
+            <p className="registerText">Belum punya akun?  <Link to={ROUTES.REGISTER()} className="registerLink">Daftar</Link></p>
+           
+            <p className="registerText"> Anda adalah petani? <Link to={ROUTES.LOGIN_PETANI()} className="registerLink">Klik Disini</Link></p>
           </div>
         </div>
       </form>
@@ -97,7 +98,7 @@ export default class Login extends React.Component{
             <Link to={ROUTES.LANDING_PAGE()} className="backButton">
               <ArrowBackIcon />
             </Link>
-            <h1>Masuk</h1>
+            <h1>Masuk Sebagai Pembeli</h1>
           </div>
           <div className="cardLoginBody">
             <Formik

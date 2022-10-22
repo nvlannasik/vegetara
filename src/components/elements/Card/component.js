@@ -19,7 +19,7 @@ export default class Card extends React.Component {
               </div>
             </div>
             <div className="cardImage">
-              <img src={image} alt="cardImage" width={20} height={20} />
+              <img src={image} alt="cardImage" />
             </div>
             <div className={classes.cardContent}>
               <div className={classes.estimasi}>
@@ -27,7 +27,7 @@ export default class Card extends React.Component {
                   <icons.FieldTimeOutlined />
                 </span>
                 <span className="estimasiText">
-                  {`Akan tersedia dalam ${estimasi} hari`}
+                  {estimasi}
                 </span>
               </div>
               <div className={classes.priceTag}>

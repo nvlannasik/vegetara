@@ -1,5 +1,3 @@
-import Checkout from "../pages/Checkout";
-
 const routes = {
   LANDING_PAGE(){
     return '/';
@@ -36,7 +34,10 @@ const routes = {
   },
   CHART(){
     return '/chart';
-  }
+  },
+  REGISTER_PETANI() {
+    return '/register-petani';
+  },
 }
 
 export default routes 

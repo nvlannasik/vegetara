@@ -23,6 +23,15 @@ const Style = () => ({
       width: 200,
       height: 250,
     },
+    '& .cardImage': {
+      '& img': {
+        width: "100%",
+        height: 180,
+        '@media (max-width: 768px)': {
+          height: 125,
+        },
+      },
+    },
   },
 
   titleCard: {
@@ -71,10 +80,6 @@ const Style = () => ({
     color : "white",
     paddingTop : 15,
     backgroundColor: "#7DCE13",
-    '@media (max-width: 768px)': {
-      fontSize: '12px',
-      padding: '5px 10px',
-    },
   }
 });
 

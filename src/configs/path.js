@@ -19,6 +19,7 @@ function Path(){
         <Route exact path={ROUTES.CREATE_PRODUCT()} element={<pages.CreateProduct />} />
         <Route exact path={ROUTES.CHECKOUT()} element={<pages.CheckoutPage />} />
         <Route exact path={ROUTES.CHART()} element={<pages.ChartPage />} />
+        <Route exact path={ROUTES.REGISTER_PETANI()} element={<pages.RegisterPetani />} />
       </Routes>
     </Router>
   )

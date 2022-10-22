@@ -10,6 +10,7 @@ import DasboardPetani from "./DashboardPetani";
 import CreateProduct from "./CreateProduct";
 import CheckoutPage from "./Checkout";
 import ChartPage from "./Chart";
+import RegisterPetani from "./RegisterPetani";
 
 
 const pages ={
@@ -24,7 +25,8 @@ const pages ={
   DasboardPetani,
   CreateProduct,
   CheckoutPage,
-  ChartPage
+  ChartPage,
+  RegisterPetani
 }
 
 export default pages;
