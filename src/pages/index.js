@@ -11,6 +11,7 @@ import CreateProduct from "./CreateProduct";
 import CheckoutPage from "./Checkout";
 import ChartPage from "./Chart";
 import RegisterPetani from "./RegisterPetani";
+import Contact from "./Contact";
 
 
 const pages ={
@@ -26,7 +27,8 @@ const pages ={
   CreateProduct,
   CheckoutPage,
   ChartPage,
-  RegisterPetani
+  RegisterPetani,
+  Contact,
 }
 
 export default pages;

@@ -38,6 +38,9 @@ const routes = {
   REGISTER_PETANI() {
     return '/register-petani';
   },
+  CONTACT() {
+    return '/kontak-kami';
+  },
 }
 
 export default routes 

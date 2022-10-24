@@ -12,8 +12,8 @@ export default class About extends React.Component {
           <div align="center">
             <Card className={ classes.aboutCard } style={{ width: "80%" }} >
               <Row justify="center" align="middle">
-                <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-                  <img src='https://i.ibb.co/3kt6dSK/Pngtree-set-of-fruit-and-vegetable-7259018-1.png'></img>
+                <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
+                  <img src='https://i.ibb.co/3kt6dSK/Pngtree-set-of-fruit-and-vegetable-7259018-1.png' height={"100%"} align="left"></img>
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <h2 className={classes.headerAboutUs} align="left" >Tentang Kami</h2>
@@ -26,14 +26,14 @@ export default class About extends React.Component {
                   <h2 className={classes.headerAboutUs} align="left" >Apa yang Kami Tawarkan?</h2>
                   <p align="justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </Col>
-                <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-                  <img src='https://i.ibb.co/gWHqnQt/Pngtree-set-of-fruit-and-vegetable-7259018-1-2.png'></img>
+                <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
+                  <img src='https://i.ibb.co/gWHqnQt/Pngtree-set-of-fruit-and-vegetable-7259018-1-2.png' height={"100%"} align="right"></img>
                 </Col>
               </Row>
 
               <Row justify="center" align="middle">
-                <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
-                  <img src='https://i.ibb.co/T8K5K2p/Pngtree-set-of-fruit-and-vegetable-7259018-1-1.png'></img>
+              <Col xs={24} sm={24} md={12} lg={12} xl={8} xxl={8}>
+                  <img src='https://i.ibb.co/T8K5K2p/Pngtree-set-of-fruit-and-vegetable-7259018-1-1.png' height={"100%"} align="left"></img>
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8} xxl={8}>
                   <h2 className={classes.headerAboutUs} align="left" >Target Pasar</h2>

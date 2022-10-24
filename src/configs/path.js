@@ -20,6 +20,7 @@ function Path(){
         <Route exact path={ROUTES.CHECKOUT()} element={<pages.CheckoutPage />} />
         <Route exact path={ROUTES.CHART()} element={<pages.ChartPage />} />
         <Route exact path={ROUTES.REGISTER_PETANI()} element={<pages.RegisterPetani />} />
+        <Route exact path={ROUTES.CONTACT()} element={<pages.Contact />} />
       </Routes>
     </Router>
   )
