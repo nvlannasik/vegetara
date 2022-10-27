@@ -237,7 +237,7 @@ export default class PageBase extends React.Component {
                   <Link to={ROUTES.ABOUT()}>Tentang Kami</Link>
                 </li>
                 <li>
-                  <Link to={ROUTES.ABOUT()}>Kontak</Link>
+                  <Link to={ROUTES.CONTACT()}>Kontak</Link>
                 </li>
               </ul>
             </div>

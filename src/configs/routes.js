@@ -21,7 +21,7 @@ const routes = {
     return '/login-admin';
   },
   DASBOARD_ADMIN() {
-    return '/dasboard-admin';
+    return '/dashboard-admin';
   },
   DASBOARD_PETANI() {
     return '/dashboard-petani';

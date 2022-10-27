@@ -20,14 +20,13 @@ export default class CardDetail extends React.Component {
   componentDidMount() {
     const { id, token } = this.state;
     console.log(token)
-    this.handleDetailProduct(id, token);
+    this.handleDetailProduct(id);
   }
 
-  handleDetailProduct = (id, token) => {
+  handleDetailProduct = (id) => {
     
     const headers = {
       'Content-Type': 'application/json',
-      'x-auth-token': token
     }
     axios.get(API.getAllProduct + "/" + id,{ headers })
       .then((res) => {
