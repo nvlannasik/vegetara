@@ -14,13 +14,11 @@ export default class Card extends React.Component {
           <div className={classes.card}>
             <div className={classes.headerCard}>
               <div className={classes.titleCard}><b>{title}</b></div>
-              <div className={classes.nameOwner}>
-                <span className="nameOwnerText">{owner}</span>
-              </div>
             </div>
             <div className="cardImage">
               <img src={image} alt="cardImage" />
             </div>
+            
             <div className={classes.cardContent}>
               <div className={classes.estimasi}>
                 <span className="iconEstimasi">
@@ -33,6 +31,10 @@ export default class Card extends React.Component {
               <div className={classes.priceTag}>
                 <span className={classes.priceText}>{price}</span>
               </div>
+             
+            </div>
+            <div className={classes.nameOwner}>
+              <span className="nameOwnerText">{owner}</span>
             </div>
           </div>
         </button>

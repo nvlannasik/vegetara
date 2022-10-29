@@ -21,4 +21,5 @@ export default {
   petaniRegister: baseUrl + 'api/petani/register',
   loginPetani: baseUrl + 'api/petani/login',
   loginAdmin: baseUrl + 'api/admin/login',
+  postChart: baseUrl + 'api/cart/',
 };

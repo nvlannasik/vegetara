@@ -33,7 +33,7 @@ const routes = {
     return '/checkout';
   },
   CHART(){
-    return '/chart';
+    return '/cart';
   },
   REGISTER_PETANI() {
     return '/register-petani';

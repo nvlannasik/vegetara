@@ -1,10 +1,11 @@
-import { PlusCircleOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import React from 'react'
-import { IMAGES, API } from '../../configs'
+import {  API, ROUTES } from '../../configs'
 import PageBase from '../../components/layouts/PageBase';
 import { Col, Row } from 'antd';
 import axios from 'axios';
 import { get } from 'lodash';
+import { ButtonFilled, ButtonGhost } from "../../components/elements";
+import { Modal } from "antd";
 
 export default class CardDetail extends React.Component {
   constructor(props) {
@@ -12,19 +13,21 @@ export default class CardDetail extends React.Component {
     this.state = {
       count: 0,
       id: localStorage.getItem('idProduct'),
+      idUser: localStorage.getItem('id'),
       token: localStorage.getItem('accessToken'),
+      totalPrice: 0,
       data: [],
+      modal: false,
+      modalGagal:false
     }
   }
 
   componentDidMount() {
-    const { id, token } = this.state;
-    console.log(token)
+    const { id} = this.state;
     this.handleDetailProduct(id);
   }
 
   handleDetailProduct = (id) => {
-    
     const headers = {
       'Content-Type': 'application/json',
     }
@@ -32,30 +35,60 @@ export default class CardDetail extends React.Component {
       .then((res) => {
         const data = get(res, 'data.data.product');
         this.setState({ data });
-        console.log(data)
       })
-      .catch((err) => {
-        console.log(err)
-      }
-      )
+      .catch((error) => {
+        this.setState({modalGagal:true})
+      })
   }
+
+
+  handlePostChart = () => {
+    const { id, idUser, token } = this.state;
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token': token,
+    }
+      let body = {
+        "productId": id,
+        "userId": idUser,
+      }
+      axios.post(API.postChart, body, { headers })
+      .then((res) => { this.setState({ modal: true })})
+      .catch((err) => {this.setState({ modalGagal:true})})
+  }
+
   handleAdd = () => {
-    this.setState({
-      count: this.state.count + 1
-    })
-    localStorage.setItem('count', this.state.count + 1,"tesd")
+    const { count, data } = this.state;
+    this.setState({ count: count + 1, totalPrice: data.price * (count + 1) })
   }
 
   handleMinus = () => {
-    this.setState({
-      count: this.state.count - 1
-    })
-
-    if (this.state.count === 0) { 
-      this.setState({
-        count: 0
-      })
+    const { count, data } = this.state;
+    if (count > 0) {
+      this.setState({ count: count - 1, totalPrice: data.price * (count - 1) })
     }
+  }
+
+  handleOke = () => {
+    window.location.href = ROUTES.CHART()
+  }
+  handleCancel = () => {
+    this.setState({
+      modal:false, modalGagal:false
+    })
+  }
+  renderModal = () => {
+    const { modal, modalGagal } = this.state;
+    return (
+      <Modal
+        title="Delete Product"
+        visible={modal || modalGagal}
+        onOk={this.handleOke}
+        onCancel={this.handleCancel}
+      >
+        <p>{modal===true?"Sayur berhasil ditambahkan":"sayur sudah pernah ditambahkan"}</p>
+      </Modal>
+    )
   }
 
   render() {
@@ -64,8 +97,9 @@ export default class CardDetail extends React.Component {
     return (
       <PageBase badge={count}>
       <div className={classes.detailCard}>
-        <div className={classes.informationDetails}>
-        <br></br>
+          <div className={classes.informationDetails}>
+            <br></br>
+            {this.renderModal()}
           <Row justify='center'>
             <Col xs={24} sm={24} md={8} lg={8} xl={6} xxl={6} className={classes.rowImage}>
               <img src={data.imageUrl}  style={{ borderRadius: 10 }} alt="cardImage" width={"98%"}/>
@@ -80,14 +114,8 @@ export default class CardDetail extends React.Component {
             <Col xs={24} sm={24} md={8} lg={8} xl={4} xxl={4} className={classes.rowDetails}>
               <div className = {classes.cardDetails}>
                 <h3 className={classes.h3Text}><b>Atur jumlah Pembelian</b></h3>
-                <div className={ classes.counterItems }>
-                  <button onClick={this.handleMinus} className={ classes.plusMinusButton }><MinusCircleOutlined style={{ fontSize: '18px', color: '#7DCE13'}}/></button>
-                  <span className={ classes.counterText }>{this.state.count}</span>
-                  <button onClick={this.handleAdd} className={ classes.plusMinusButton }><PlusCircleOutlined style={{ fontSize: '18px', color: '#7DCE13'}}/></button>
-                  <span className={ classes.counterText } >stock: {data.stock}</span>
-                </div>
-                <span className={classes.addToChart}><b>+ Keranjang</b></span>
-                <span className={classes.checkout}><b>Beli</b></span>
+                  <ButtonFilled  onClick={this.handlePostChart}><b>+ Keranjang</b></ButtonFilled>
+                  <ButtonGhost className={classes.checkout}><b>Beli</b></ButtonGhost>
               </div>
             </Col>
           </Row>

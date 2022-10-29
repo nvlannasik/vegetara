@@ -124,43 +124,43 @@ export default class PageBase extends React.Component {
     );
   }
 
-  _renderSidebar() {
-    const { classes } = this.props;
-    const { sidebarOpen } = this.state;
-    return (
-      <div
-        className={clsx({
-          [classes.sidebarHide]: sidebarOpen === false,
-          [classes.sidebarShow]: sidebarOpen === true,
-        })}
-      >
-        <div className="sidebar">
-          <div className="sidebarBody">
-            <div className="sidebarBodyItem">
-              <Link to={ROUTES.LANDING_PAGE()}>
-                <h1>Home</h1>
-              </Link>
-            </div>
-            <div className="sidebarBodyItem">
-              <Link to={ROUTES.LANDING_PAGE()}>
-                <h1>Kontak Kami</h1>
-              </Link>
-            </div>
-            <div className="sidebarBodyItem">
-              <Link to={ROUTES.LANDING_PAGE()}>
-                <h1>Kontak Kami</h1>
-              </Link>
-            </div>
-            <div className="sidebarBodyItem">
-              <Link to={ROUTES.LANDING_PAGE()}>
-                <h1>dafar</h1>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // _renderSidebar() {
+  //   const { classes } = this.props;
+  //   const { sidebarOpen } = this.state;
+  //   return (
+  //     <div
+  //       className={clsx({
+  //         [classes.sidebarHide]: sidebarOpen === false,
+  //         [classes.sidebarShow]: sidebarOpen === true,
+  //       })}
+  //     >
+  //       <div className="sidebar">
+  //         <div className="sidebarBody">
+  //           <div className="sidebarBodyItem">
+  //             <Link to={ROUTES.LANDING_PAGE()}>
+  //               <h1>Home</h1>
+  //             </Link>
+  //           </div>
+  //           <div className="sidebarBodyItem">
+  //             <Link to={ROUTES.LANDING_PAGE()}>
+  //               <h1>Kontak Kami</h1>
+  //             </Link>
+  //           </div>
+  //           <div className="sidebarBodyItem">
+  //             <Link to={ROUTES.LANDING_PAGE()}>
+  //               <h1>Kontak Kami</h1>
+  //             </Link>
+  //           </div>
+  //           <div className="sidebarBodyItem">
+  //             <Link to={ROUTES.LANDING_PAGE()}>
+  //               <h1>dafar</h1>
+  //             </Link>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   _renderRightElement() {
     return (
@@ -177,7 +177,7 @@ export default class PageBase extends React.Component {
     return (
       <div className="rightElement">
         <div className="trolli">
-          <Link>
+          <Link to={ROUTES.CHART()}>
             <Badge badgeContent={badge} color="primary">
               <AddShoppingCartIcon />
             </Badge>
