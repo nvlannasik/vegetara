@@ -2,6 +2,7 @@ const styles = (theme) => ({
   inputWrapper: {
     display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
     '& input': {
       width: 300,
       height: 40,

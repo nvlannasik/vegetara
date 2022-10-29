@@ -21,7 +21,7 @@ const routes = {
     return '/login-admin';
   },
   DASBOARD_ADMIN() {
-    return '/dasboard-admin';
+    return '/dashboard-admin';
   },
   DASBOARD_PETANI() {
     return '/dashboard-petani';
@@ -33,7 +33,7 @@ const routes = {
     return '/checkout';
   },
   CHART(){
-    return '/chart';
+    return '/cart';
   },
   REGISTER_PETANI() {
     return '/register-petani';

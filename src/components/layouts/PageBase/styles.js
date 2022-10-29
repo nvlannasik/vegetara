@@ -103,6 +103,11 @@ const styles = (theme) => ({
             display: 'none',
           },
         },
+        '& logout': {
+          '@media (max-width: 1299px)': {
+            display: 'none',
+          },
+        },
         '& .avatarImage': {
           width: 40,
           height: 40,

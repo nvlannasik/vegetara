@@ -17,6 +17,13 @@ const Style = () => ({
         fontSize: "18px",
         fontWeight: "bold",
     },
+    operation: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginTop: 10,
+        width: "70%"
+    },
 
     h2checkout2: {
         paddingTop: 15,

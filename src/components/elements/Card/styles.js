@@ -1,4 +1,3 @@
-import { NoEncryption } from "@mui/icons-material";
 
 const Style = () => ({
   gridCard: {
@@ -9,7 +8,7 @@ const Style = () => ({
 
   card: {
     width: 260,
-    height: 320,
+    height: 350,
     backgroundColor: "#fff",
     borderRadius: 10,
     // boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
@@ -39,7 +38,8 @@ const Style = () => ({
   },
 
   nameOwner: {
-    color : "rgba(0, 0, 0, 0.5)",
+    color: "rgba(0, 0, 0, 0.5)",
+    marginTop:15
   },
 
   headerCard: {

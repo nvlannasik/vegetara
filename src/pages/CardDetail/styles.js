@@ -40,6 +40,9 @@ const Style = () => ({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: 'center',
+        '& button': {
+            marginTop: 10,
+        }
     },
 
     counterText: {
