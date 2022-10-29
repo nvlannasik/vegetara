@@ -9,7 +9,7 @@ export default class DashboardPetani extends React.Component {
   renderTransaksi() {
     return (
       <div className="transaksi">
-        <h2>Transaksi</h2>
+        <h2>TransaksiTest</h2>
         <div className="card">
           <div className="keterangan">
             <span>Nama:ujang</span>
