@@ -1,7 +1,8 @@
 import React from "react";
 import PagePetani from "../../components/layouts/PagePetani";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { ButtonFilled2, ButtonFilled } from "../../components/elements";
+import { ButtonFilled2, ButtonFilled, Card } from "../../components/elements";
+import { Row, Col } from "antd";
 
 export default class DashboardPetani extends React.Component {
 
@@ -9,33 +10,118 @@ export default class DashboardPetani extends React.Component {
   renderTransaksi() {
     return (
       <div className="transaksi">
-        <h2>TransaksiTest</h2>
-        <div className="card">
-          <div className="keterangan">
-            <span>Nama:ujang</span>
-            <span>Produk:Wortel</span>
-            <span>jumlah :1 kg</span>
-            <span>total:Rp 10.000</span>
+        <h2>Riwayat Transaksi</h2>
+        <div className="wrapperCard">
+          <div className="headerComp">
           </div>
-          <div className="status">
-            <ButtonFilled>Terima</ButtonFilled>
-          </div>
-          <div className="status">
-            <ButtonFilled>Tolak</ButtonFilled>
-          </div>
-        </div>
-        <div className="card">
-          <button>
-            <span>Wortel</span>
-            <p>jumlah :1 kg</p>
-            <p>total:Rp 10.000</p>
-          </button>
+            <Row className="productCard">
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Pesanan Berhasil'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Pesanan Berhasil'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Pesanan Berhasil'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Pesanan Berhasil'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Pesanan Berhasil'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+            </Row>
         </div>
       </div>
     );
   }
 
-  
+  renderPesanan() {
+    return (
+      <div className="transaksi">
+        <h2>Pesanan Berlangsung</h2>
+        <div className="wrapperCard">
+          <div className="headerComp">
+          </div>
+            <Row className="productCard">
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Sedang Diproses'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Sedang Diproses'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Sedang Diproses'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Sedang Diproses'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Sedang Diproses'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+              <Card
+                key='1'
+                title='Kentang'
+                estimasi=' 2 Hari'
+                owner='Pak Sutanto'
+                price='Sedang Diproses'
+                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
+              />
+            </Row>
+        </div>
+      </div>
+    );
+  }
 
   renderInformasi = () => {
     return (
@@ -108,6 +194,7 @@ export default class DashboardPetani extends React.Component {
           </div>
           {this.renderInformasi()}
           {this.renderTransaksi()}
+          {this.renderPesanan()}
         </div>
       </PagePetani>
     );

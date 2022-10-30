@@ -128,7 +128,8 @@ const Syles = (theme) => ({
         backgroundColor:'rgba(125, 206, 19, 0.5)',
         width: '100%',
         marginRight: '5px',
-        padding: '0px 20px 20px 20px',
+        borderRadius: '10px',
+        padding: '20px',
         '& h1': {
           fontSize: '24px',
           '@media (max-width: 1299px)': {
@@ -176,8 +177,9 @@ const Syles = (theme) => ({
         marginTop: '20px',
         backgroundColor: 'rgba(125, 206, 19, 0.5)',
         width: '100%',
+        borderRadius: '10px',
         marginLeft: '5px',
-        padding: '0px 20px 20px 20px',
+        padding: '20px',
         '@media (max-width: 1299px)': {
           marginLeft: '0',
         },
@@ -229,33 +231,23 @@ const Syles = (theme) => ({
     '& .transaksi': {
       display: 'block',
       width: '100%',
-      border: '1px solid #757575',
-      padding: '20px 20px',
+      padding: '5px 20px',
+      marginBottom: '50px',
       '& h2': {
-        margin: '10px 10px',
+        fontWeight: 'bold',
       },
-      '& .card': {
-        width: '100%',
-        display: 'flex',
-        marginBottom: '20px',
-        boxShadow: '0px 0px 10px 0px rgba(0,0,0,0.5)',
-        alignItems: 'center',
-        padding: '10px 10px',
-        '@media (max-width: 767px)': {
-          flexDirection: 'column',
-        },
-        '& .keterangan': {
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          '& span': {
-            fontSize: '18px',
-            fontWeight: 'bold',
-            fontFamily: 'Inter, sans-serif',
-            color: '#757575',
-          },
-        },
+      '& .wrapperCard': {
+        border: '1px solid rgba(125, 125, 125, 0.6)',
+      },
+      '& .headerComp': {
+        height: '45px',
+        maxWidth : '280px',
+        minWidth : '120px',
+        backgroundColor: '#7DCE13',
+        borderBottomRightRadius : '20px',
+      },
+      '& .productCard': {
+        paddingTop: '25px',
       },
     },
   },
