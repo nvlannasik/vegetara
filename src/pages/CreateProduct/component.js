@@ -138,7 +138,9 @@ export default class CreateProduct extends React.Component {
   
   _handleSchema = () => {
     return Yup.object().shape({
-      nameProduct: Yup.string().required("Nama sayur harus diisi"),
+      nameProduct: Yup.string().required("Nama sayur harus diisi")
+      .max(25, "Nama sayur maksimal 50 karakter")
+      .min(5, "Nama sayur minimal 5 karakter"),
       priceProduct: Yup.number().required("Harga harus diisi"),
       stockProduct: Yup.number().required("Stok harus diisi"),
       descriptionProduct: Yup.string().required("Deskripsi harus diisi"),
