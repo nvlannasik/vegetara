@@ -83,6 +83,7 @@ const Syles = (theme) => ({
             display: 'none',
             '@media (max-width: 1299px)': {
               display: 'block',
+              width: '100%',
             },
           },
           '& h1': {
@@ -251,6 +252,24 @@ const Syles = (theme) => ({
       },
     },
   },
+  priceTag: {
+      height: 25,
+      paddingBottom: 15,
+      paddingLeft: 75,
+      paddingRight: 75,
+      borderRadius: 10,
+      color: "white",
+      paddingTop: 15,
+    backgroundColor: "#7DCE13",
+    '@media (max-width: 1299px)': {
+      paddingLeft: 50,
+      paddingRight: 50,
+    },
+    '@media (max-width: 767px)': {
+      paddingLeft: 25,
+      paddingRight: 25,
+    },
+  }
 
 });
 

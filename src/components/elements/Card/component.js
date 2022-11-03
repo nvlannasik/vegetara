@@ -1,19 +1,19 @@
 import React from 'react';
 import * as icons from '@ant-design/icons';
-import { Col } from 'antd';
 import PropTypes from 'prop-types';
+import Dotdotdot from 'react-dotdotdot';
+import clsx from 'clsx';
 
 export default class Card extends React.Component {
   render() {
     const {
-      classes, title, estimasi, owner, price, image, onClick, 
+      classes, title, estimasi, owner, price, image, onClick, expired
     } = this.props;
     return (
-      <Col xs={24} sm={12} md={12} lg={8} xl={6} xxl={4} className={classes.gridCard}>
         <button className={classes.buttonCard} onClick={onClick}>
           <div className={classes.card}>
             <div className={classes.headerCard}>
-              <div className={classes.titleCard}><b>{title}</b></div>
+            <div className={classes.titleCard}><b><Dotdotdot clamp={1}>{title}</Dotdotdot></b></div>
             </div>
             <div className="cardImage">
               <img src={image} alt="cardImage" />
@@ -28,17 +28,15 @@ export default class Card extends React.Component {
                   {estimasi}
                 </span>
               </div>
-              <div className={classes.priceTag}>
-                <span className={classes.priceText}>{price}</span>
+            <div className={classes.priceTag}>
+              <span className={clsx(classes.priceText, { [classes.expired]: expired === true, })}>{price}</span>
               </div>
-             
             </div>
             <div className={classes.nameOwner}>
               <span className="nameOwnerText">{owner}</span>
             </div>
           </div>
         </button>
-      </Col>
     );
   }
 }
@@ -52,6 +50,7 @@ Card.propTypes = {
   price: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
+  expired: PropTypes.bool.isRequired,
 };
 
 Card.defaultProps = {
@@ -63,4 +62,5 @@ Card.defaultProps = {
   price: '',
   image: '',
   onClick: () => { },
+  expired: false,
 };

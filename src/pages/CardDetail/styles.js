@@ -42,7 +42,10 @@ const Style = () => ({
         justifyContent: 'center',
         '& button': {
             marginTop: 10,
-        }
+        },
+        '@media (max-width: 767px)': {
+            width: "100%",
+        },
     },
 
     counterText: {

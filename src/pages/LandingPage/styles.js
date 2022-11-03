@@ -37,10 +37,29 @@ const styles = () => ({
   },
 
   cardProduct: {
-   
     display: 'flex',
     justifyContent: 'center',
     marginTop: 20,
+    '& ul': {
+      width: '100%',
+      padding: 0,
+      listStyle: 'none',
+      display: 'grid',
+      gridTemplateColumns: 'auto auto auto auto',
+      '@media (min-width: 768px) and (max-width: 1299px)': {
+        gridTemplateColumns: 'auto auto auto auto',
+      },
+      '@media (max-width: 767px)': {
+        gridTemplateColumns: 'auto auto auto auto',
+      },
+      '@media (max-width: 700px)': {
+        gridTemplateColumns: 'auto auto auto',
+      },
+      '@media (max-width: 500px)': {
+        gridTemplateColumns: 'auto auto',
+      }
+      
+    }
   },
   
   titleProduct : {

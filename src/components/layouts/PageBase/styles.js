@@ -1,10 +1,22 @@
-const appBarHeight = 86;
+const appBarHeight = 75;
 const sidebarWidth = 200;
 const styles = (theme) => ({
+  '@global': {
+    '.MuiPaper-root': {
+      width:'300px',
+    },
+  },
   container: {
     overflowX: 'hidden',
   },
-
+  drawerHeader: {
+    display: 'flex',
+    '& .username': {
+      marginTop: '10px',
+      fontSize: '14px',
+    }
+  }
+  ,
   appBar:{
     backgroundColor:'#FFFFFF',
     width: '100%',
@@ -70,13 +82,15 @@ const styles = (theme) => ({
         justifyContent: 'center',
         marginRight: 20,
         height: 40,
-
+        '@media (max-width: 767px)': {
+          marginRight: 0,
+        },
         '& svg': {
           color: '#757575',
           cursor: 'pointer',
           height: 40,
           '@media (max-width: 1299px)': {
-            color: 'white'
+            color: '#757575',
           },
           '@media (max-width: 767px)': {
             color: '#757575',
@@ -103,7 +117,14 @@ const styles = (theme) => ({
             display: 'none',
           },
         },
-        '& logout': {
+        '& .logout': {
+          marginLeft: 20,
+          '& svg': {
+            color: '#757575',
+            cursor: 'pointer',
+            height: 40,
+            border: 'none',
+          },
           '@media (max-width: 1299px)': {
             display: 'none',
           },

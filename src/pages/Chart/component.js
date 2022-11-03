@@ -125,7 +125,7 @@ export default class ChartPage extends React.Component{
         const { data, totalProduct, totalHarga, pajak } = this.state;
 
     return(
-        <PageBase>
+        <PageBase >
             <div className={ classes.checkoutSection }>
                 <Row justify='center'>
                     {this.renderModalDelete()}

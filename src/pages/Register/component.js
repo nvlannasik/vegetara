@@ -24,9 +24,6 @@ export default class Register extends React.Component {
       hintEmail: false,
       hintPhone: false,
       error: false,
-      errorMessPhone: '',
-      errorMessEmail: '',
-      errorMessUsername: '',
       errorMessage: ''
     };
   }
@@ -44,16 +41,7 @@ export default class Register extends React.Component {
       .then((res) => {window.location.href = ROUTES.LOGIN() })
       .catch((err) => {
         const { response } = err;
-        console.log(response)
-        if (response.status === 400) {
-          if (response.data === 1) {
-            this.setState({ errorMessUsername: 'Username sudah ada' })
-          } else if (response.data === 2) {
-            this.setState({ errorMessEmail: 'Email sudah ada' })
-          } else if (response.data === 3) {
-            this.setState({ errorMessPhone: 'Nomor telepon sudah ada' })
-          }
-        } else { this.setState({ error: true, errorMessage: 'Terjadi kesalahan pada server' }) }
+        this.setState({ error: true, errorMessage: response.data.message });
       }
       );
   }

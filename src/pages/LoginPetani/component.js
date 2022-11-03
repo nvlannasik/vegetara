@@ -25,10 +25,13 @@ export default class LoginPetani extends React.Component {
     const body = { "userName": username, "password": password }
     axios.post(API.loginPetani, body, API.header)
       .then((res) => {
-        alert(res.data.message)
+        if (res.status === 200) {
+          setUserSession(res.data.accessToken, res.data.data)
+          window.location.href = ROUTES.DASBOARD_PETANI()
+        }
       })
       .catch((err) => {
-        alert(err)
+        this.setState({ error: true, errorMessage: 'username atau password salah' })
       })
   }
 

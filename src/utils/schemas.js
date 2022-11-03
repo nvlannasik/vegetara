@@ -19,5 +19,7 @@ export const registerSchema = Yup.object().shape({
   name: Yup.string().required('Nama tidak boleh kosong')
   .min(6, 'Nama minimal 6 karakter'),
   phone: Yup.string().required('Nomor telepon tidak boleh kosong')
-    .matches(REGEX.phone, 'Nomor telepon harus diawali dengan 08 dan hanya boleh mengandung angka'),
+    .matches(REGEX.phone, 'Nomor telepon harus diawali dengan 08 dan hanya boleh mengandung angka')
+    .min(10, 'Nomor telepon minimal 10 karakter')
+    .max(15, 'Nomor telepon maksimal 15 karakter'),
 });

@@ -1,21 +1,41 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { IMAGES } from '../../../configs';
+import { IMAGES, ROUTES, API } from '../../../configs';
 import { Link } from 'react-router-dom';
 import { Footer } from '../../elements';
 import propTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
 import { deepOrange } from '@mui/material/colors';
+import { getUserSession } from '../../../utils/commons';
+import axios from 'axios';
 
 export default class PagePetani extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
-      name: 'ajooo',
+      name: '',
       
     };
   }
 
+  componentDidMount() {
+    const user = getUserSession();
+    const { name, accessToken } = user;
+    this.setState({ name });
+    this._handleCheckToken(accessToken);
+  }
+
+  _handleCheckToken = (accessToken) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'x-auth-token-petani': accessToken,
+    };
+    axios.get(API.checkTokenPetani, { headers })
+      .catch((err) => {
+        window.location.href = ROUTES.LOGIN_PETANI();
+        localStorage.clear();
+      });
+  };
   _renderAppBar() {
     const { classes } = this.props;
     const { name } = this.state;
@@ -27,9 +47,9 @@ export default class PagePetani extends React.Component{
             <img src={IMAGES.LOGO_GREEN} alt="logo" width={70} />
           </div>
           <div className="rightElement">
-            <span>{name}</span>
+            <span>{name.split(' ')[0]}</span>
             <Avatar sx={{ bgcolor: deepOrange[500] }}>
-              {name[0].toUpperCase()}
+              {/* {name[0].toUpperCase()} */}
             </Avatar>
           </div>
         </div>

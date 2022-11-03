@@ -1,6 +1,5 @@
 export const setUserSession = (accessToken, data ) => {
   const { _id, userName, name, email, role, phoneNumber } = data
-  console.log(userName,"set user")
   localStorage.setItem('accessToken', accessToken)
   localStorage.setItem('id', _id)
   localStorage.setItem('username', userName)
@@ -31,3 +30,14 @@ export const removeUserSession = () => {
   localStorage.removeItem('role')
   localStorage.removeItem('phoneNumber')
 }
+
+export const setPetaniSession = (data) => {
+  const { _id, name, email, phoneNumber, address, role } = data
+  localStorage.setItem('idPetani', _id)
+  localStorage.setItem('namePetani', name)
+  localStorage.setItem('emailPetani', email)
+  localStorage.setItem('phoneNumberPetani', phoneNumber)
+  localStorage.setItem('addressPetani', address)
+  localStorage.setItem('rolePetani', role)
+}
+

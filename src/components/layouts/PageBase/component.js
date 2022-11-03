@@ -11,6 +11,7 @@ import { getUserSession } from "../../../utils/commons";
 import { SwipeableDrawer, Divider, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import HomeIcon from "@mui/icons-material/Home";
+import Call from "@mui/icons-material/Call";
 import { Footer } from "../../elements";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import InfoIcon from "@mui/icons-material/Info";
@@ -35,9 +36,9 @@ export default class PageBase extends React.Component {
 
   async componentDidMount() {
     const user = getUserSession();
-    const { name, accessToken } = user;
+    const { name } = user;
     this.setState({ name });
-    this.handleCheckToken(accessToken);
+    this.handleCheckRoute();
   }
 
   handleClick = () => {
@@ -50,43 +51,39 @@ export default class PageBase extends React.Component {
       "x-auth-token": accessToken,
     };
     axios.get(API.checkTokenUser, { headers })
-      .then((res) => {
-        const status = res.data.status;
-      })
       .catch((err) => {
         this.setState({ isLogin: false });
-        this.handleCheckRoute();
+        window.location.href = ROUTES.LOGIN();
         localStorage.clear();
       });
   };
-  handleCheckRoute = () => {
+
+  handleCheckRoute = (token) => {
     const { isLogin } = this.state;
     const { pathname } = window.location;
-    if (isLogin === false && pathname !== "/") {
-      setTimeout(() => {
-        window.location.href = "/"; 
-      }, 3000);
-    } 
-  }
+    // eslint-disable-next-line default-case
+    switch (pathname) {
+      case ROUTES.CHART():
+        if (isLogin === false) {
+          this.handleCheckToken(token);
+        } break;
+      case ROUTES.CHECKOUT():
+        if (isLogin === false) {
+          this.handleCheckToken(token);
+        }
+        break;
+    }
+  };
 
   handleLogout = () => {
     localStorage.clear();
     window.location.href = ROUTES.LOGIN();
   };
 
-  _renderModalExpired() {
-    const { isLogin } = this.state;
-    const { pathname } = window.location;
-    return (
-      <ModalExpired
-        open={!isLogin && pathname !== "/"}
-        handleClose={this.handleLogout}
-      />
-    )
-  }
+
   _renderDrawer() {
     const { classes } = this.props;
-    const { sidebarOpen } = this.state;
+    const { sidebarOpen, name } = this.state;
     return (
       <SwipeableDrawer
         open={sidebarOpen}
@@ -98,26 +95,35 @@ export default class PageBase extends React.Component {
           <IconButton onClick={this.handleClick}>
             <ChevronLeftIcon />
           </IconButton>
+          <div className="username">
+            <h2>{name}</h2>
+          </div>
         </div>
         <Divider />
         <List>
-          <ListItem button key="Home">
+          <ListItem button key="Home" onClick={() => {window.location.href = ROUTES.LANDING_PAGE()}}>
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" />
+            <ListItemText primary="Beranda" />
           </ListItem>
-          <ListItem button key="About">
+          <ListItem button key="About" onClick={() => { window.location.href = ROUTES.ABOUT() }}>
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="Tentang Kami" />
           </ListItem>
-          <ListItem button key="Contact">
+          <ListItem button key="Contact" onClick={() => { window.location.href = ROUTES.CONTACT() }}>
+            <ListItemIcon>
+              <Call />
+            </ListItemIcon>
+            <ListItemText primary="Kontak" />
+          </ListItem>
+          <ListItem button key="Logout" onClick={() => this.handleLogout}>
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Kontak" />
+            <ListItemText primary="Keluar" />
           </ListItem>
         </List>
       </SwipeableDrawer>
@@ -173,7 +179,8 @@ export default class PageBase extends React.Component {
     );
   }
   _renderAkun() {
-    const { name, badge } = this.state;
+    const { name } = this.state;
+    const { badge } = this.props;
     return (
       <div className="rightElement">
         <div className="trolli">
@@ -191,9 +198,9 @@ export default class PageBase extends React.Component {
             <h2>{name}</h2>
           </div>
           <div className="logout">
-            <button onClick={this.handleLogout}>
+            <Link onClick={this.handleLogout}>
               <LogoutIcon />
-            </button>
+            </Link>
           </div>
           <div className="menuIcon">
             <MenuIcon onClick={this.handleClick} />
@@ -260,7 +267,6 @@ export default class PageBase extends React.Component {
         {this._renderAppBar()}
         {this._renderDrawer()}
         <main>{children}</main>
-        {this._renderModalExpired()}
         <Footer />
       </div>
     );

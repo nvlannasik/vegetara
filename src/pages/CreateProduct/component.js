@@ -1,5 +1,5 @@
 import React from "react";
-import PageAdmin from "../../components/layouts/PageAdmin";
+import PagePetani from "../../components/layouts/PagePetani";
 import {
   ButtonFilled,
   TextInput,
@@ -8,8 +8,11 @@ import {
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { DatePicker } from "antd";
-import { API } from "../../configs";
+import { API, ROUTES } from "../../configs";
 import axios from "axios";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link } from 'react-router-dom';
+import moment from "moment";
 
 export default class CreateProduct extends React.Component {
   constructor(props) {
@@ -21,29 +24,32 @@ export default class CreateProduct extends React.Component {
       descriptionsProduct: "",
       imageProduct: "",
       harvestProduct: "",
-      petaniId: "",
-      petaniName: localStorage.getItem("name") || "test",
-      id: localStorage.getItem("idPetani"),
-      token: localStorage.getItem("accessTokenPetani"),
+      petaniName: localStorage.getItem("name"),
+      id: localStorage.getItem("id"),
+      token: localStorage.getItem("accessToken"),
     };
   }
 
   
   _renderForm = ({ values, errors, touched, handleChange: _handleChange, handleBlur: _handleBlur, handleSubmit: _handleSubmit, isSubmitting }) => {
     const _handleFilesFromDrag = (name, file) => {
+      console.log(name, URL.createObjectURL(file));
       this.setState({ [name]: URL.createObjectURL(file) }, () => {
         _handleChange({ target: { name, value: URL.createObjectURL(file) } });
       });
     };
 
     const _handleChangeDate = (date, dateString) => {
-      this.setState({ harvestProduct: dateString }, () => {
-        _handleChange({ target: { name: "harvestProduct", value: dateString } });
+      this.setState({ harvestProduct: moment(dateString).format("YYYY/MM/DD") }, () => {
+        _handleChange({ target: { name: date, value: dateString } });
       });
     }
 
     return (
       <div>
+        <Link to={ROUTES.DASBOARD_PETANI()}>
+          <ArrowBackIcon />
+        </Link>
         <form onSubmit={_handleSubmit}>
         <TextInput
           name="namePetani"
@@ -87,7 +93,10 @@ export default class CreateProduct extends React.Component {
             hint="Unggah foto sayur"
             onBlur={_handleBlur}
             hintError={errors.imageProduct && touched.imageProduct}
-        />
+            acceptFiles='.png,.jpg,.jpeg'
+            text={"sdfds"}
+            name="file"
+          />
         <DatePicker
             value={values.harvestProduct}
             onChange={_handleChangeDate.bind(this, "harvestProduct")}
@@ -114,16 +123,16 @@ export default class CreateProduct extends React.Component {
       "name": nameProduct,
       "description": descriptionProduct,
       "price": priceProduct,
-      "stock": stockProduct,
       "imageUrl": imageProduct,
-      "harvestDate": harvestProduct,
-      "expirationDate": harvestProduct,
-      "petaniId": 0,
-      "petaniName": "Imbron Bin Somat"
+      "harvestDate": moment(harvestProduct).format("YYYY/MM/DD"),
+      "expirationDate": moment(harvestProduct).format("YYYY/MM/DD"),
+      "petaniId": id,
+      "petaniName": petaniName,
+      "stock": stockProduct,
     }
     const headers = {
-      "Content-Type": "application/json",
-      "x-auth-token-petani": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjAsImVtYWlsIjoicGV0YW5pMTIzIiwiaWF0IjoxNjY2NDE4OTMxLCJleHAiOjE2NjY0MjYxMzF9.8C2HSR2Ewa5PLDR2V8tgbOgQtVHHe6iHQbCHXNJNpWA",
+      "x-auth-token-petani": token,
+      'Content-Type': 'multipart/form-data'
     }
 
     axios.post(API.getAllProduct, data, { headers })
@@ -139,7 +148,6 @@ export default class CreateProduct extends React.Component {
   _handleSchema = () => {
     return Yup.object().shape({
       nameProduct: Yup.string().required("Nama sayur harus diisi")
-      .max(25, "Nama sayur maksimal 50 karakter")
       .min(5, "Nama sayur minimal 5 karakter"),
       priceProduct: Yup.number().required("Harga harus diisi"),
       stockProduct: Yup.number().required("Stok harus diisi"),
@@ -153,7 +161,7 @@ export default class CreateProduct extends React.Component {
     const { classes } = this.props;
     const {  nameProduct, priceProduct, stockProduct, descriptionProduct, imageProduct, harvestProduct, petaniId, petaniName } = this.state;
     return (
-      <PageAdmin>
+      <PagePetani>
         <div className={classes.container}>
           <Formik
             initialValues={{  nameProduct, priceProduct, stockProduct, descriptionProduct, imageProduct, harvestProduct, petaniId, petaniName }}
@@ -162,7 +170,7 @@ export default class CreateProduct extends React.Component {
             validationSchema={this._handleSchema}
           />
         </div>
-      </PageAdmin>
+      </PagePetani>
     );
   }
 }

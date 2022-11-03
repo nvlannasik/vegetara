@@ -36,7 +36,7 @@ export default class Login extends React.Component{
         const { response } = err;
         if (response.status === 400) {
           this.setState({ error: true, errorMessage: 'username atau password salah' })
-        }else {this.setState({error: true,errorMessage: 'Terjadi kesalahan pada server'})}
+        }else {this.setState({error: true,errorMessage: 'sedang ada maintenance, silahkan coba beberapa saat lagi'})}
       }
     );
   }

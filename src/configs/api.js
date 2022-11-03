@@ -22,4 +22,5 @@ export default {
   loginPetani: baseUrl + 'api/petani/login',
   loginAdmin: baseUrl + 'api/admin/login',
   postChart: baseUrl + 'api/cart/',
+  checkTokenPetani: baseUrl + 'api/refresh-token/verify-token-petani',
 };

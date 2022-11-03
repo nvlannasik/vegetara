@@ -9,8 +9,20 @@ const Style = () => ({
 
     aboutCard: {
         borderRadius: 10,
-        boxShadow : "rgba(0, 0, 0, 0.08) 0px 4px 12px;",
+        boxShadow: "rgba(0, 0, 0, 0.08) 0px 4px 12px;",
         border: "none",
+        '& img': {
+            width: "100%",
+        },
+        '& h2': {
+            fontSize: "24px",
+            fontWeight: "bold",
+            fontFamily: "Inter, sans-serif",
+            color: "#757575",
+            '@media (max-width: 767px)': {
+                fontSize: "16px",
+            },
+        },
     },
 
     headerAboutUs:{ 

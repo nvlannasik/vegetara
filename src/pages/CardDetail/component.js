@@ -51,10 +51,14 @@ export default class CardDetail extends React.Component {
       let body = {
         "productId": id,
         "userId": idUser,
-      }
+    }
+    if (!token) {
+      window.location.href = ROUTES.LOGIN()
+    }else{
       axios.post(API.postChart, body, { headers })
-      .then((res) => { this.setState({ modal: true })})
-      .catch((err) => {this.setState({ modalGagal:true})})
+        .then((res) => { this.setState({ modal: true }) })
+        .catch((err) => { this.setState({ modalGagal: true }) })
+    }
   }
 
   handleAdd = () => {
@@ -113,9 +117,8 @@ export default class CardDetail extends React.Component {
             </Col>
             <Col xs={24} sm={24} md={8} lg={8} xl={4} xxl={4} className={classes.rowDetails}>
               <div className = {classes.cardDetails}>
-                <h3 className={classes.h3Text}><b>Atur jumlah Pembelian</b></h3>
+                <h3 className={classes.h3Text}><b>Tambahkan pesanan anda</b></h3>
                   <ButtonFilled  onClick={this.handlePostChart}><b>+ Keranjang</b></ButtonFilled>
-                  <ButtonGhost className={classes.checkout}><b>Beli</b></ButtonGhost>
               </div>
             </Col>
           </Row>
