@@ -84,6 +84,7 @@ export default class LoginPetani extends React.Component {
     const { username, password } = this.state;
     const initialValues = { username, password };
     return (
+      <>
       <div className={classes.container}>
         <div className="logo">
           <img src={IMAGES.LOGO_WHITE} alt="logo" className='img1' />
@@ -100,6 +101,8 @@ export default class LoginPetani extends React.Component {
         </div>
         
       </div>
+        <Footer classes={{ footer: classes.footer }} />
+      </>
     );
   }
 }

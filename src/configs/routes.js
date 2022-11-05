@@ -41,6 +41,9 @@ const routes = {
   CONTACT() {
     return '/kontak-kami';
   },
+  PROFILE() {
+    return '/profile';
+  }
 }
 
 export default routes 

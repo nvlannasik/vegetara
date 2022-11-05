@@ -23,4 +23,6 @@ export default {
   loginAdmin: baseUrl + 'api/admin/login',
   postChart: baseUrl + 'api/cart/',
   checkTokenPetani: baseUrl + 'api/refresh-token/verify-token-petani',
+  checkout: baseUrl + 'api/checkout',
+  getOverviewPetani: baseUrl + 'api/dashboard/pesanan/',
 };

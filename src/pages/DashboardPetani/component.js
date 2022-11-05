@@ -2,48 +2,43 @@ import React from "react";
 import PagePetani from "../../components/layouts/PagePetani";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import {  ButtonFilled, Card } from "../../components/elements";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import PropTypes from "prop-types";
-import { ROUTES } from "../../configs";
+import { ROUTES, API } from "../../configs";
+import axios from "axios";
 
 export default class DashboardPetani extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: localStorage.getItem("name"),
+      data:[],
     };
   }
+
+  componentDidMount() {
+      this.handleGetOverview();
+  }
+
+  handleGetOverview = () => {
+    let id = localStorage.getItem("id");  
+    let token = localStorage.getItem("accessToken");
+    const headers = {
+      "Content-Type": "application/json",
+      "x-auth-token-petani": token,
+    };
+    axios.get(API.getOverviewPetani+id, { headers}).then((res) => {
+      const data = res.data.data;
+      this.setState({ data });
+    });
+  };
+
 
   renderTransaksi() {
     const { classes } = this.props;
     return (
       <div className="transaksi">
-        <h2>Riwayat Transaksi</h2>
-        <div className="wrapperCard">
-          <div className="headerComp">
-          </div>
-            <Row className="productCard">
-              <Card
-                key='1'
-                title='Kentang'
-                estimasi=' 2 Hari'
-                owner='Pak Sutanto'
-                price='Pesanan Berhasil'
-                image='https://i.ibb.co/pb001rX/istockphoto-174429248-170667a-1.png'
-                classes={{ priceText: classes.priceTag }}
-              />
-              
-            </Row>
-        </div>
-      </div>
-    );
-  }
-
-  renderPesanan() {
-    const { classes } = this.props;
-    return (
-      <div className="transaksi">
-        <h2>Pesanan Berlangsung</h2>
+        <h2>Riwayat</h2>
         <div className="wrapperCard">
           <div className="headerComp">
           </div>
@@ -59,6 +54,39 @@ export default class DashboardPetani extends React.Component {
             />
             </Row>
         </div>
+      </div>
+    );
+  }
+
+  renderPesanan() {
+    const { classes } = this.props;
+    const { data } = this.state;
+    return (
+      <div className="transaksi">
+        {data.map((data) => (
+          <>
+            <h2>Transaksi {data.id}</h2>
+        <div className="wrapperCard">
+          <div className="headerComp">
+          </div>
+            <Row className="productCard">
+            {data.product.map((item) => (
+                <Card
+                  key={item.id}
+                  title={item.name}
+                  estimasi={data.status}
+                  owner={data.userId}
+                  price={item.price}
+                  image={item.imageUrl}
+                  classes={{ priceText: classes.priceTag }}
+                />
+            ))}
+          </Row>
+          <ButtonFilled>Terima pesanan</ButtonFilled>
+          <ButtonFilled classes={{ buttonFilled: classes.buttonFilled }}>Tolak pesanan</ButtonFilled>
+        </div>
+          </>
+        ))}
       </div>
     );
   }
@@ -137,8 +165,8 @@ export default class DashboardPetani extends React.Component {
             </div>
           </div>
           {this.renderInformasi()}
-          {this.renderTransaksi()}
           {this.renderPesanan()}
+          {this.renderTransaksi()}
         </div>
       </PagePetani>
     );

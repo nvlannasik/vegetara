@@ -1,30 +1,48 @@
 import React from "react";
-import { Card } from "../../components/elements";
+import { Card, ModalBanner } from "../../components/elements";
 import PageBase from "../../components/layouts/PageBase";
 import { IMAGES, ROUTES } from "../../configs";
-import { Row } from "antd";
 import axios from "axios";
 import { API } from "../../configs";
 import { get } from "lodash";
 import moment from "moment";
-import { Grid } from "@mui/material";
 
 export default class LandingPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { dataProduct: [], expired: false };
+    this.state = { dataProduct: [], expired: false, modalBanner: false };
+
   }
 
   componentDidMount() {
     this.handleGetAllProduct();
-    
+    let banner = sessionStorage.getItem("banner");
+    if (!banner) {
+      this.setState({ modalBanner: true });
+    }else{
+      this.setState({ modalBanner: false });
+    }
   }
 
+  handleCloseModalBanner = () => {
+    this.setState({ modalBanner: false }, () => {
+      sessionStorage.setItem("banner", true);
+    });
+  }
+  renderModalBanner = () => {
+    const { modalBanner } = this.state;
+    return (
+      <ModalBanner
+        visible={modalBanner} onClose={this.handleCloseModalBanner}/>
+    )
+  }
   handleGetAllProduct = () => {
     axios.get(API.getAllProduct, { headers: API.header }).then((res) => {
       const data = get(res, "data.data.products");
-      this.setState({ dataProduct: data });
-      console.log(data);
+      const dataProduct = data.sort((a, b) =>
+        a.timestamps < b.timestamps ? 1 : -1
+      );
+      this.setState({ dataProduct });
     });
   };
   handleRouteLogin = () => {
@@ -46,14 +64,13 @@ export default class LandingPage extends React.Component {
 
   handleEstimateTime = (date) => {
     var dateNow = moment().format("YYYY-MM-DD");
-    var dateFuture = date
-    console.log(moment(dateFuture).format("YYYY-MM-DD"), dateNow);
+    var dateFuture = date;
     if (moment(dateFuture).format("YYYY-MM-DD") > dateNow) {
       let diff = moment(dateFuture).diff(moment(dateNow), "days");
-      return "tersedia dalam" + diff + " hari lagi";
+      return diff + " hari lagi";
     }
     if (moment(dateFuture).format("YYYY-MM-DD") < dateNow) {
-      return "Sudah tidak tersedia";
+      return "tidak tersedia";
     }
     if (moment(dateFuture).format("YYYY-MM-DD") === dateNow) {
       return "Tersedia";
@@ -62,7 +79,7 @@ export default class LandingPage extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { dataProduct,  } = this.state;
+    const { dataProduct } = this.state;
     return (
       <PageBase>
         <div className={classes.landingPage}>
@@ -74,30 +91,33 @@ export default class LandingPage extends React.Component {
             <div className={classes.cardProductContent}>
               <h1 className={classes.titleProduct}>Produk</h1>
               <ul>
-                  {dataProduct.map((item, index) => {
-                    var dateNow = moment().format("YYYY-MM-DD");
-                    var dateFuture = item.harvestDate
-                    console.log(moment(dateFuture).format("YYYY-MM-DD"), dateNow);
-                    return (
-                      <li>
+                {dataProduct.map((item, index) => {
+                  var dateNow = moment().format("YYYY-MM-DD");
+                  var dateFuture = item.harvestDate;
+                  return (
+                    <li>
                       <Card
                         key={index}
                         title={item.name}
                         estimasi={this.handleEstimateTime(item.harvestDate)}
                         owner={item.petaniName}
+                        satuan={item.satuanJenis}
                         stock={item.stock}
                         price={item.price}
                         image={item.imageUrl}
                         onClick={this.handleRouteCard.bind(this, item._id)}
-                        expired={moment(dateFuture).format("YYYY-MM-DD") < dateNow}
+                        expired={
+                          moment(dateFuture).format("YYYY-MM-DD") < dateNow
+                        }
                       />
-                      </li>
-                    );
-                  })}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
         </div>
+        {this.renderModalBanner()}
       </PageBase>
     );
   }

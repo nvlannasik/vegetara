@@ -7,7 +7,7 @@ import clsx from 'clsx';
 export default class Card extends React.Component {
   render() {
     const {
-      classes, title, estimasi, owner, price, image, onClick, expired
+      classes, title, estimasi, owner, price, image, onClick, expired, satuan
     } = this.props;
     return (
         <button className={classes.buttonCard} onClick={onClick}>
@@ -21,15 +21,12 @@ export default class Card extends React.Component {
             
             <div className={classes.cardContent}>
               <div className={classes.estimasi}>
-                <span className="iconEstimasi">
-                  <icons.FieldTimeOutlined />
-                </span>
                 <span className="estimasiText">
-                  {estimasi}
+                  Rp. {price} /{satuan}
                 </span>
               </div>
             <div className={classes.priceTag}>
-              <span className={clsx(classes.priceText, { [classes.expired]: expired === true, })}>{price}</span>
+              <span className={clsx(classes.priceText, { [classes.expired]: expired === true, })}>{estimasi}</span>
               </div>
             </div>
             <div className={classes.nameOwner}>
@@ -51,6 +48,7 @@ Card.propTypes = {
   image: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   expired: PropTypes.bool.isRequired,
+  satuan: PropTypes.string
 };
 
 Card.defaultProps = {
@@ -63,4 +61,5 @@ Card.defaultProps = {
   image: '',
   onClick: () => { },
   expired: false,
+  satuan :''
 };

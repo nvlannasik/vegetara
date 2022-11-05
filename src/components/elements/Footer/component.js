@@ -1,5 +1,6 @@
 import React from "react";
 import { IMAGES } from "../../../configs";
+import PropTypes from "prop-types";
 
 export default class Footer extends React.Component {
   render() {
@@ -39,3 +40,7 @@ export default class Footer extends React.Component {
     );
   }
 }
+
+Footer.propTypes = {
+  classes: PropTypes.object.isRequired,
+};

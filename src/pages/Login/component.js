@@ -3,7 +3,6 @@ import { ButtonFilled, TextInput, Footer } from '../../components/elements';
 import { ROUTES, API } from '../../configs';
 import axios from 'axios';
 import { Formik } from 'formik';
-import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { loginSchema } from '../../utils/schemas';
 import { setUserSession } from '../../utils/commons';

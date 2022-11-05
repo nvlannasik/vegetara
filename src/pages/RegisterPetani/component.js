@@ -46,7 +46,6 @@ export default class Register extends React.Component {
       })
       .catch((err) => {
         const { response } = err;
-        console.log(response)
         if (response.status === 400) {
           if (response.data === 1) {
             this.setState({ errorMessUsername: 'Username sudah ada' })

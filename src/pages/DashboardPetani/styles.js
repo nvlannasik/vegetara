@@ -42,7 +42,7 @@ const Syles = (theme) => ({
           alignItems: 'center',
         },
         '& .icon': {
-          backgroundColor: 'rgba(125, 206, 19, 0.5)',
+          backgroundColor: '#7DCE13',
           width: '200px',
           height: '200px',
           borderRadius: '100%',
@@ -59,7 +59,7 @@ const Syles = (theme) => ({
           },
           '& svg': {
             fontSize: '100px',
-            color: '#757575',
+            color: '#FFFFFF',
             '@media (min-width: 768px) and (max-width: 1299px)': {
               fontSize: '80px',
             },
@@ -126,13 +126,14 @@ const Syles = (theme) => ({
         '@media (max-width: 1299px)': {
          marginRight: '0',
         },
-        backgroundColor:'rgba(125, 206, 19, 0.5)',
+        backgroundColor:'#7DCE13',
         width: '100%',
         marginRight: '5px',
         borderRadius: '10px',
         padding: '20px',
         '& h1': {
           fontSize: '24px',
+          color:'white',
           '@media (max-width: 1299px)': {
             fontSize: '18px',
           },
@@ -152,7 +153,7 @@ const Syles = (theme) => ({
               fontSize: '18px',
               fontWeight: 'bold',
               fontFamily: 'Inter, sans-serif',
-              color: '#757575',
+              color: 'white',
               '@media (max-width: 1299px)': {
                 fontSize: '14px',
               },
@@ -163,7 +164,7 @@ const Syles = (theme) => ({
             '& p': {
               fontWeight: 'bold',
               fontFamily: 'Inter, sans-serif',
-              color: '#757575',
+              color: 'white',
               '@media (max-width: 1299px)': {
                 fontSize: '14px',
               },
@@ -176,7 +177,7 @@ const Syles = (theme) => ({
       },
       '& .informasiWrapper2': {
         marginTop: '20px',
-        backgroundColor: 'rgba(125, 206, 19, 0.5)',
+        backgroundColor: '#7DCE13',
         width: '100%',
         borderRadius: '10px',
         marginLeft: '5px',
@@ -186,6 +187,7 @@ const Syles = (theme) => ({
         },
         '& h1': {
           fontSize: '24px',
+          color:'white',
           '@media (max-width: 1299px)': {
             fontSize: '18px',
           },
@@ -195,7 +197,7 @@ const Syles = (theme) => ({
         },
         '& .contentWrapper': {
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'space-around',
           '& .content': {
             display: 'flex',
             flexDirection: 'column',
@@ -205,7 +207,7 @@ const Syles = (theme) => ({
               fontSize: '18px',
               fontWeight: 'bold',
               fontFamily: 'Inter, sans-serif',
-              color: '#757575',
+              color: 'white',
               '@media (max-width: 1299px)': {
                 fontSize: '14px',
               },
@@ -217,7 +219,7 @@ const Syles = (theme) => ({
             '& p': {
               fontWeight: 'bold',
               fontFamily: 'Inter, sans-serif',
-              color: '#757575',
+              color: 'white',
               '@media (max-width: 1299px)': {
                 fontSize: '14px',
               },
@@ -268,6 +270,30 @@ const Syles = (theme) => ({
     '@media (max-width: 767px)': {
       paddingLeft: 25,
       paddingRight: 25,
+    },
+  },
+  buttonFilled: {
+    padding: '10px 20px',
+    borderRadius: '5px',
+    border: 'none',
+    backgroundColor: '#FF0000',
+    cursor: 'pointer',
+    color: '#fff',
+    fontSize: '16px',
+    fontFamily: 'Inter, sans-serif',
+    textDecoration: 'none',
+    width: '100%',
+    marginTop: '10px',
+    '@media (max-width: 768px)': {
+      fontSize: '12px',
+    },
+    '&:hover': {
+      backgroundColor: '#8FCF3C',
+      color: '#fff',
+    },
+    '&:focus': {
+      backgroundColor: '#8FCF3C',
+      color: '#fff',
     },
   }
 

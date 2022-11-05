@@ -1,6 +1,6 @@
 import React from "react";
 
-import {  ButtonFilled, ButtonGhost, ModalExpired } from "../../elements";
+import {  ButtonFilled, ButtonGhost} from "../../elements";
 
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,16 +12,17 @@ import { SwipeableDrawer, Divider, IconButton } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import HomeIcon from "@mui/icons-material/Home";
 import Call from "@mui/icons-material/Call";
-import { Footer } from "../../elements";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { Footer, ModalExpired } from "../../elements";
 import InfoIcon from "@mui/icons-material/Info";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import Badge from "@material-ui/core/Badge";
 import propTypes from "prop-types";
 import axios from "axios";
 import LogoutIcon from "@mui/icons-material/Logout";
-
+import { Login } from "@mui/icons-material";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import clsx from "clsx";
+
 
 export default class PageBase extends React.Component {
   constructor(props) {
@@ -30,15 +31,18 @@ export default class PageBase extends React.Component {
       sidebarOpen: false,
       name: "",
       token: "",
-      isLogin: true,
+      tokenExpired:false
     };
   }
 
   async componentDidMount() {
     const user = getUserSession();
-    const { name } = user;
-    this.setState({ name });
-    this.handleCheckRoute();
+    const { name, accessToken} = user;
+    this.setState({ name});
+    this.handleCheckRoute(accessToken);
+    if(window.location.pathname !== "/checkout") {
+      sessionStorage.removeItem('dataCheckout')
+    }
   }
 
   handleClick = () => {
@@ -52,26 +56,32 @@ export default class PageBase extends React.Component {
     };
     axios.get(API.checkTokenUser, { headers })
       .catch((err) => {
-        this.setState({ isLogin: false });
-        window.location.href = ROUTES.LOGIN();
+        this.setState({ tokenExpired: true });
         localStorage.clear();
       });
   };
 
   handleCheckRoute = (token) => {
-    const { isLogin } = this.state;
     const { pathname } = window.location;
-    // eslint-disable-next-line default-case
-    switch (pathname) {
-      case ROUTES.CHART():
-        if (isLogin === false) {
+    const user = getUserSession();
+    const { role } = user;
+    if (role === "admin" || role === "petani") {
+      localStorage.clear();
+      window.location.href = ROUTES.LOGIN();
+    } else {
+      // eslint-disable-next-line default-case
+      switch (pathname) {
+        case ROUTES.CHART():
           this.handleCheckToken(token);
-        } break;
-      case ROUTES.CHECKOUT():
-        if (isLogin === false) {
+          break;
+        case ROUTES.CHECKOUT():
           this.handleCheckToken(token);
-        }
-        break;
+          break;
+        case ROUTES.PROFILE():
+          this.handleCheckToken(token);
+          break;
+        
+      }
     }
   };
 
@@ -80,7 +90,19 @@ export default class PageBase extends React.Component {
     window.location.href = ROUTES.LOGIN();
   };
 
+  handleOpenCloseModal = () => {
+    this.setState({ tokenExpired: !this.state.tokenExpired }, () => {
+      window.location.href = ROUTES.LOGIN();
+    });
+  };
 
+  _renderModalExpired() {
+    const { tokenExpired } = this.state;
+    return (
+      <ModalExpired
+        open={tokenExpired} handleClose={this.handleOpenCloseModal} message="Silahkan Login ulang"   />
+    )
+  }
   _renderDrawer() {
     const { classes } = this.props;
     const { sidebarOpen, name } = this.state;
@@ -95,12 +117,15 @@ export default class PageBase extends React.Component {
           <IconButton onClick={this.handleClick}>
             <ChevronLeftIcon />
           </IconButton>
-          <div className="username">
-            <h2>{name}</h2>
-          </div>
         </div>
         <Divider />
         <List>
+          {name ?  (<ListItem button key="Profile" onClick={() => { window.location.href = ROUTES.PROFILE() }}>
+            <ListItemIcon>
+              < AccountBoxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Profil Saya" />
+          </ListItem>): null}
           <ListItem button key="Home" onClick={() => {window.location.href = ROUTES.LANDING_PAGE()}}>
             <ListItemIcon>
               <HomeIcon />
@@ -119,12 +144,17 @@ export default class PageBase extends React.Component {
             </ListItemIcon>
             <ListItemText primary="Kontak" />
           </ListItem>
-          <ListItem button key="Logout" onClick={() => this.handleLogout}>
+          {name ? (<ListItem button key="Logout" onClick={() => { this.handleLogout() }}>
             <ListItemIcon>
-              <ExitToAppIcon />
+              <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Keluar" />
-          </ListItem>
+          </ListItem>) : (<ListItem button key="Login" onClick={() => { this.handleLogout() }}>
+            <ListItemIcon>
+                <Login />
+            </ListItemIcon>
+            <ListItemText primary="Login" />
+          </ListItem>)}
         </List>
       </SwipeableDrawer>
     );
@@ -190,18 +220,14 @@ export default class PageBase extends React.Component {
             </Badge>
           </Link>
         </div>
+        
         <div className="avatar">
-          <div className="avatarImage">
-            <h2>{name[0].toUpperCase()}</h2>
-          </div>
-          <div className="username">
-            <h2>{name}</h2>
-          </div>
-          <div className="logout">
-            <Link onClick={this.handleLogout}>
-              <LogoutIcon />
+            <Link className="avatarImage" to={ROUTES.PROFILE()}>
+              <h2>{name[0].toUpperCase()}</h2>
             </Link>
-          </div>
+          <Link className="username" to={ROUTES.PROFILE()}>
+              <h2>{name}</h2>
+            </Link>
           <div className="menuIcon">
             <MenuIcon onClick={this.handleClick} />
           </div>
@@ -266,6 +292,7 @@ export default class PageBase extends React.Component {
       >
         {this._renderAppBar()}
         {this._renderDrawer()}
+        {this._renderModalExpired()}
         <main>{children}</main>
         <Footer />
       </div>

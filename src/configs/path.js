@@ -21,6 +21,7 @@ function Path(){
         <Route exact path={ROUTES.CHART()} element={<pages.ChartPage />} />
         <Route exact path={ROUTES.REGISTER_PETANI()} element={<pages.RegisterPetani />} />
         <Route exact path={ROUTES.CONTACT()} element={<pages.Contact />} />
+        <Route exact path={ROUTES.PROFILE()} element={<pages.Profile />} />
       </Routes>
     </Router>
   )

@@ -4,8 +4,9 @@ import PageBase from '../../components/layouts/PageBase';
 import { Col, Row } from 'antd';
 import axios from 'axios';
 import { get } from 'lodash';
-import { ButtonFilled, ButtonGhost } from "../../components/elements";
+import { ButtonFilled } from "../../components/elements";
 import { Modal } from "antd";
+import moment from 'moment';
 
 export default class CardDetail extends React.Component {
   constructor(props) {
@@ -18,7 +19,8 @@ export default class CardDetail extends React.Component {
       totalPrice: 0,
       data: [],
       modal: false,
-      modalGagal:false
+      modalGagal: false,
+      status:false
     }
   }
 
@@ -43,7 +45,7 @@ export default class CardDetail extends React.Component {
 
 
   handlePostChart = () => {
-    const { id, idUser, token } = this.state;
+    const { id, idUser, token,data } = this.state;
     const headers = {
       'Content-Type': 'application/json',
       'x-auth-token': token,
@@ -52,26 +54,22 @@ export default class CardDetail extends React.Component {
         "productId": id,
         "userId": idUser,
     }
-    if (!token) {
-      window.location.href = ROUTES.LOGIN()
-    }else{
-      axios.post(API.postChart, body, { headers })
-        .then((res) => { this.setState({ modal: true }) })
-        .catch((err) => { this.setState({ modalGagal: true }) })
+    let status = this.handleEstimateTime(data.harvestDate)
+    if (status === true) {
+        if (!token) {
+        window.location.href = ROUTES.LOGIN()
+      }else{
+        axios.post(API.postChart, body, { headers })
+          .then((res) => { this.setState({ modal: true }) })
+          .catch((err) => { this.setState({ modalGagal: true }) })
+      }
+    } else {
+      alert("mohon maaf sayur sudah tidak tersedia")
     }
+    
   }
 
-  handleAdd = () => {
-    const { count, data } = this.state;
-    this.setState({ count: count + 1, totalPrice: data.price * (count + 1) })
-  }
-
-  handleMinus = () => {
-    const { count, data } = this.state;
-    if (count > 0) {
-      this.setState({ count: count - 1, totalPrice: data.price * (count - 1) })
-    }
-  }
+ 
 
   handleOke = () => {
     window.location.href = ROUTES.CHART()
@@ -85,7 +83,7 @@ export default class CardDetail extends React.Component {
     const { modal, modalGagal } = this.state;
     return (
       <Modal
-        title="Delete Product"
+        title="Tambah Keranjang"
         visible={modal || modalGagal}
         onOk={this.handleOke}
         onCancel={this.handleCancel}
@@ -94,6 +92,27 @@ export default class CardDetail extends React.Component {
       </Modal>
     )
   }
+  showFormattedDate = (date) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(date).toLocaleDateString("id-ID", options);
+  };
+  handleEstimateTime = (date) => {
+    var dateNow = moment().format("YYYY-MM-DD");
+    var dateFuture = date;
+    if (moment(dateFuture).format("YYYY-MM-DD") > dateNow) {
+      return true
+    }
+    if (moment(dateFuture).format("YYYY-MM-DD") < dateNow) {
+      return false
+    }
+    if (moment(dateFuture).format("YYYY-MM-DD") === dateNow) {
+      return true
+    }
+  };
 
   render() {
     const { count, data } = this.state
@@ -110,15 +129,28 @@ export default class CardDetail extends React.Component {
             </Col>
             <Col xs={24} sm={24} md={8} lg={8} xl={6} xxl={6} className={classes.rowDesc}>
                 <h2><b>{data.name}</b></h2>
-              <hr></hr>
-                <h3 className={classes.h3Text}><b>Harga {data.price}</b></h3>
-                <p>Kondisi: Baru<br></br>Berat Satuan: 25 g<br></br>Kategori: Sayur<br></br>Waktu Panen: {data.harvestDate}</p>
-                <p className={classes.descParagraph} align="justify">{data.description}</p>
+                <hr></hr>
+                <Row>
+                  <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                    <h3 className={classes.h3Text}><b>Harga</b></h3>
+                    <p>Stok</p>
+                    <p>Tanggal panen</p>
+                    <p>Alamat</p>
+                    <p>Deskripsi</p> 
+                    </Col>
+                  <Col xs={12} sm={12} md={12} lg={12} xl={12} xxl={12}>
+                    <h3 className={classes.h3Text}><b>: {data.price}/{data.satuanJenis}</b></h3>
+                    <p>: {data.stock}</p>
+                    <p>: {this.showFormattedDate(data.harvestDate)}</p>
+                    <p>: {data.alamatPetani}</p>
+                    <p>: {data.description}</p>
+                  </Col>
+                  </Row>
             </Col>
             <Col xs={24} sm={24} md={8} lg={8} xl={4} xxl={4} className={classes.rowDetails}>
               <div className = {classes.cardDetails}>
-                <h3 className={classes.h3Text}><b>Tambahkan pesanan anda</b></h3>
-                  <ButtonFilled  onClick={this.handlePostChart}><b>+ Keranjang</b></ButtonFilled>
+                <h3 className={classes.h3Text}><b>Tambahkan Keranjang</b></h3>
+                  <ButtonFilled  onClick={this.handlePostChart} ><b>+ Keranjang</b></ButtonFilled>
               </div>
             </Col>
           </Row>

@@ -24,6 +24,7 @@ export default class ChartPage extends React.Component{
         this.handleGetAllProduct()
     }
 
+
     handleGetAllProduct() {
         const { idUser, token, count } = this.state;
         const headers = {
@@ -36,7 +37,6 @@ export default class ChartPage extends React.Component{
                 data.map((item) => (
                     item.product.map((item, index) => (
                         item.count = count
-                        
                     ))
                 ))
                 data.map((item) => (
@@ -44,13 +44,27 @@ export default class ChartPage extends React.Component{
                         this.setState({ totalHarga :this.state.totalHarga + item.price })
                     ))
                 ))
+                if (data.length === 0) {
+                    window.location.href = ROUTES.LANDING_PAGE()
+                }
                 this.setState({ data, totalProduct: data.length })
             })
 
     }
 
+    handleDeleteProduct = (id) => {
+        const { token } = this.state;
+        const headers = {
+            'Content-Type': 'application/json',
+            'x-auth-token': token,
+        }
+        axios.delete(API.postChart + "/" + id, { headers })
+            .then((res) => {
+                this.handleGetAllProduct()
+            })
+    }
+
     handleAdd = (id) => {
-        console.log(id);
         const { data  } = this.state;
         data.map((item) => (
             item.product.map((item, index) => (
@@ -67,12 +81,12 @@ export default class ChartPage extends React.Component{
         })
     }
     
-    handleSubstract = (id) => {
+    handleSubstract = (id,chartId) => {
         const { data } = this.state;
             data.map((item) => (
                 item.product.map((item, index) => (
                     item._id === id ? 
-                    item.count > 1 ? item.count -= 1 : this.handleDelete(id) : null
+                        item.count > 1 ? item.count -= 1 : this.handleDeleteProduct(chartId) : null
                 ))
             ))
         this.setState({ data, totalProduct: this.state.totalProduct - 1 }, () => {
@@ -95,7 +109,7 @@ export default class ChartPage extends React.Component{
             <Modal
                 title="Delete Product"
                 visible={modalDelete}
-                onOk={this.handleOk}
+                // onOk={this.handleDeleteProduct()}
                 onCancel={this.handleCancel}
             >
                 <p>Are you sure want to delete this product?</p>
@@ -120,6 +134,19 @@ export default class ChartPage extends React.Component{
         return prefix === undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }
 
+    handleCheckout = () => {
+        const { data, totalProduct, totalHarga } = this.state;
+        let dataCheckout=[];
+        dataCheckout.push({
+            totalHarga: totalHarga,
+            totalProduct: totalProduct,
+            data: data
+        });
+        sessionStorage.setItem('dataCheckout', JSON.stringify(dataCheckout));
+        window.location.href = ROUTES.CHECKOUT();
+        
+    }
+
     render() {
         const { classes } = this.props;
         const { data, totalProduct, totalHarga, pajak } = this.state;
@@ -135,30 +162,41 @@ export default class ChartPage extends React.Component{
                                 <h2 className={ classes.h2checkout }>Keranjang</h2>
                             </div>
                         </div>
-                        {data.map((item) => (
-                            item.product.map((item,index) => (
-                                <Row key={item.id} className={classes.priceDetails} justify="center" align="middle">
-                                    <Col span={5} align="center">
+                        
+                        {data.map((chart) => (
+                            
+                            <Row className={classes.priceDetails} justify="center" align="middle">
+                               
+                                
+                                <Col span={5} align="center">
+                                    {chart.product.map((item, index) => (
                                         <img src={item.imageUrl} className={classes.imageRadius} alt="cardImage" width={"98%"} />
+                                    ))}
                                     </Col>
-                                    <Col span={18} className={classes.descItems}>
+                                <Col span={10} className={classes.descItems}>
+                                    {chart.product.map((item, index) => (
+                                        <>
                                         <p className={classes.titleItems}>{item.name}</p>
                                         <p className={classes.hargaItems}>Total Harga : {item.price}</p>
-                                        <div className={classes.costumizeItems}>
-                                            <div className={classes.operation}>
-                                                <button onClick={this.handleSubstract.bind(this,item._id)} className={classes.plusMinusButton}><MinusCircleOutlined className={classes.plusminusIcon} /></button>
-                                                <span className={classes.count}>{item.count}</span>
-                                                <button onClick={this.handleAdd.bind(this,item._id)} className={classes.plusMinusButton}><PlusCircleOutlined className={classes.plusminusIcon} /></button>
+                                            <div className={classes.costumizeItems}>
+                                                <div className={classes.operation}>
+                                                    <button onClick={()=>this.handleSubstract(item._id,chart._id)} className={classes.plusMinusButton}><MinusCircleOutlined className={classes.plusminusIcon} /></button>
+                                                    <span className={classes.count}>{item.count}</span>
+                                                    <button onClick={this.handleAdd.bind(this, item._id)} className={classes.plusMinusButton}><PlusCircleOutlined className={classes.plusminusIcon} /></button>
+                                                </div>
                                             </div>
-                                            <div className={classes.dropItems}>
-                                                <button onClick={this.handleDelete.bind(this.item_id)} className={classes.deleteButton}><DeleteOutlined className={classes.deleteIcon} /></button>
-                                            </div>
-                                        </div>
-                                    </Col>
+                                        </>
+                                    ))}
+                                </Col>
+                                <Col span={8}>
+                                <div className={classes.dropItems}>
+                                        <button onClick={()=>this.handleDeleteProduct(chart._id)} className={classes.deleteButton}><DeleteOutlined className={classes.deleteIcon} /></button>
+                                </div>
+                                </Col>
                                 </Row>
-                        ))
+                       
                         ))}
-                        
+                       
                         <hr className={ classes.breakLine }></hr>
                         
                     </Col>
@@ -194,7 +232,7 @@ export default class ChartPage extends React.Component{
                                 </Col>
                             </Row>
                             <div className={ classes.wrapperButton } align="center">
-                                <button className={classes.buttonPay} onClick={()=> window.location.href=ROUTES.CHECKOUT()}>Checkout</button>
+                                <button className={classes.buttonPay} onClick={() => this.handleCheckout()}>Checkout</button>
                             </div>
                         </div>
                     </Col>

@@ -12,6 +12,7 @@ import CheckoutPage from "./Checkout";
 import ChartPage from "./Chart";
 import RegisterPetani from "./RegisterPetani";
 import Contact from "./Contact";
+import Profile from "./Profile";
 
 
 const pages ={
@@ -29,6 +30,7 @@ const pages ={
   ChartPage,
   RegisterPetani,
   Contact,
+  Profile
 }
 
 export default pages;

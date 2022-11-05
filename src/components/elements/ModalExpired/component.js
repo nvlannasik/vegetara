@@ -9,7 +9,7 @@ import {
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import React from "react";
 
-export default function ModalLoginExpired({ open, handleClose, classes }) {
+export default function ModalLoginExpired({ open, handleClose, classes, message }) {
   return (
     <Modal
       open={open}
@@ -48,7 +48,7 @@ export default function ModalLoginExpired({ open, handleClose, classes }) {
               variant="h6"
               className={classes.Typography}
             >
-              Silahkan Login terlebih dahulu
+              {message}
             </Typography>
           </Grid>
           <Grid

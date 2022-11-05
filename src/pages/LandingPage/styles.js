@@ -1,4 +1,5 @@
 const styles = () => ({
+ 
   landingPage: {
     width: '100%',
     
@@ -35,7 +36,6 @@ const styles = () => ({
       },
     }
   },
-
   cardProduct: {
     display: 'flex',
     justifyContent: 'center',

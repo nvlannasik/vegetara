@@ -1,6 +1,6 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ButtonFilled, TextInput, Footer } from '../../components/elements';
+import { ButtonFilled, TextInput, Footer, ModalExpired } from '../../components/elements';
 import { ROUTES, API } from '../../configs';
 import axios from 'axios';
 import { Formik } from 'formik';
@@ -41,14 +41,26 @@ export default class Register extends React.Component {
       .then((res) => {window.location.href = ROUTES.LOGIN() })
       .catch((err) => {
         const { response } = err;
-        this.setState({ error: true, errorMessage: response.data.message });
+        console.log(response, err)
+        this.setState({ error: true, errorMessage: response.data });
       }
       );
   }
 
+  handleCloseModal = () => this.setState({ error: false, errorMessage: '' })
+  renderModal = () => {
+    const { error, errorMessage } = this.state;
+    return (
+      <ModalExpired
+        open={error}
+        message={errorMessage}
+        onClose={this.handleCloseModal}
+      />
+    );
+  }
   handleFocus = (field) => this.setState(prevState => ({ [field]: !prevState[field] }))
   renderFormRegister = ({ values, errors, touched, handleChange: _handleChange, handleBlur: _handleBlur, handleSubmit: handleRegister, isSubmitting }) => {
-    const { hintUsername, hintPassword, hintName, hintEmail, hintPhone, error, errorMessEmail, errorMessPhone, errorMessUsername, errorMessage } = this.state;
+    const { hintUsername, hintPassword, hintName, hintEmail, hintPhone } = this.state;
     return (
       <form onSubmit={handleRegister}>
         <div className="form-group">
@@ -70,7 +82,7 @@ export default class Register extends React.Component {
             onChange={_handleChange}
             onBlur={_handleBlur}
             hint={hintEmail && !touched.email && ('Contoh: jhoni@gmail.com')}
-            hinterror={(touched.email && errors.email) || (error && errorMessEmail)}
+            hinterror={(touched.email && errors.email)}
             type="text"
             onFocus={this.handleFocus.bind(this, 'hintEmail')}
           />
@@ -82,7 +94,7 @@ export default class Register extends React.Component {
             onChange={_handleChange}
             onBlur={_handleBlur}
             hint={hintUsername && !touched.username && ('Contoh: lokenHong')}
-            hinterror={(touched.username && errors.username) || (error && errorMessUsername)}
+            hinterror={(touched.username && errors.username)}
             type="text"
             onFocus={this.handleFocus.bind(this, 'hintUsername')}
           />
@@ -93,7 +105,7 @@ export default class Register extends React.Component {
             onChange={_handleChange}
             onBlur={_handleBlur}
             hint={hintPhone && !touched.phone && ('Contoh: 0812345xxxxx')}
-            hinterror={(touched.phone && errors.phone) || (error && errorMessPhone)}
+            hinterror={(touched.phone && errors.phone)}
             type="text"
             onFocus={this.handleFocus.bind(this, 'hintPhone')}
           />
@@ -104,7 +116,7 @@ export default class Register extends React.Component {
             onChange={_handleChange}
             onBlur={_handleBlur}
             hint={!touched.password && hintPassword && ('Sandi setidaknya terdiri dari 8 karakter alfanumerik')}
-            hinterror={(touched.password && errors.password) || (error && errorMessage)}
+            hinterror={(touched.password && errors.password)}
             type="password"
             onFocus={this.handleFocus.bind(this, 'hintPassword')}
           />
@@ -144,6 +156,7 @@ export default class Register extends React.Component {
               onSubmit={this.handleRegister}
             />
           </div>
+          {this.renderModal()}
         </div>
         <Footer />
       </div>

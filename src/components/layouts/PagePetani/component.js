@@ -49,7 +49,6 @@ export default class PagePetani extends React.Component{
           <div className="rightElement">
             <span>{name.split(' ')[0]}</span>
             <Avatar sx={{ bgcolor: deepOrange[500] }}>
-              {/* {name[0].toUpperCase()} */}
             </Avatar>
           </div>
         </div>
