@@ -1,20 +1,19 @@
-# pull official base image
-FROM node:14.0.0-alpine
+## build environment
+FROM node:14-alpine as react-build
+WORKDIR /frontend-vegetara
+COPY package*.json ./
+RUN npm install
+COPY . .
 
-# set working directory
-WORKDIR /app
+RUN npm run build
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+# server environment
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/configfile.template
 
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+COPY --from=react-build /frontend-vegetara/build /usr/share/nginx/html
 
-# add app
-COPY . ./
-
-# start app
-CMD ["npm", "start"]
+ENV PORT 3000
+ENV HOST 0.0.0.0
+EXPOSE 3000
+CMD sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
