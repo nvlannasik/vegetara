@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, ModalBanner } from "../../components/elements";
+import { Card, ModalBanner, ModalConfirm } from "../../components/elements";
 import PageBase from "../../components/layouts/PageBase";
 import { IMAGES, ROUTES } from "../../configs";
 import axios from "axios";
@@ -10,7 +10,7 @@ import moment from "moment";
 export default class LandingPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { dataProduct: [], expired: false, modalBanner: false };
+    this.state = { dataProduct: [], expired: false, modalBanner: false, ModalConfirm:true };
 
   }
 
@@ -22,6 +22,18 @@ export default class LandingPage extends React.Component {
     }else{
       this.setState({ modalBanner: false });
     }
+  }
+  renderModalConfrim = () => {
+    const { ModalConfirm } = this.state;
+    return (
+      <ModalConfirm
+        title="succes"
+        description="anda yakin?"
+        open={ModalConfirm}
+        handleClose={this.handleCloseModalConfirm}
+        getData={this.handleGetAllProduct}
+      />
+    )
   }
 
   handleCloseModalBanner = () => {
@@ -86,7 +98,7 @@ export default class LandingPage extends React.Component {
           <div>
             <img src={IMAGES.BANNER} alt="landingPage" />
           </div>
-
+          {/* {this.renderModalConfrim()} */}
           <div className={classes.cardProduct}>
             <div className={classes.cardProductContent}>
               <h1 className={classes.titleProduct}>Produk</h1>
